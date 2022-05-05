@@ -16,5 +16,12 @@ dependencies {
     implementation "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
     implementation "org.junit.vintage:junit-vintage-engine:${junitJupiterVersion}"
 
+    //REST Assured
+    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    implementation "io.rest-assured:json-path:${restAssuredVersion}"
+    implementation "io.rest-assured:xml-path:${restAssuredVersion}"
+
     implementation project(":klee-kai-common")
+
+    implementation "org.apache.poi:poi-ooxml:5.2.0"
 }
