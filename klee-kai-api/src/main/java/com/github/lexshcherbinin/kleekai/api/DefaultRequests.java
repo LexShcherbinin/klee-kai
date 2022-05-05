@@ -3,7 +3,7 @@ package com.github.lexshcherbinin.kleekai.api;
 import static io.restassured.RestAssured.given;
 import static java.util.Objects.requireNonNullElse;
 
-import com.github.lexshcherbinin.kleekai.helpers.ValueKeeper;
+import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import java.util.Map;

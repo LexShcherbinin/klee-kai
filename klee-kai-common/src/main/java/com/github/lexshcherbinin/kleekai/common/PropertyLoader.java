@@ -1,4 +1,4 @@
-package com.github.lexshcherbinin.kleekai.helpers;
+package com.github.lexshcherbinin.kleekai.common;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

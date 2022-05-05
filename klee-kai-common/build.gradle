@@ -1,0 +1,8 @@
+dependencies {
+
+    //Allure
+    implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+    implementation "io.qameta.allure:allure-junit5:${allureVersion}"
+    implementation "io.qameta.allure:allure-selenide:${allureVersion}"
+    implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
+}

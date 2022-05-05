@@ -1,7 +1,7 @@
-package com.github.lexshcherbinin.kleekai.helpers;
+package com.github.lexshcherbinin.kleekai.common;
 
+import java.util.HashMap;
 import java.util.Map;
-import org.testng.collections.Maps;
 
 /**
  * Реализация сохранения значений.
@@ -10,7 +10,7 @@ public class ValueKeeper {
 
   private static final ThreadLocal<ValueKeeper> varThread = ThreadLocal.withInitial(ValueKeeper::new);
 
-  private final Map<String, Object> variables = Maps.newHashMap();
+  private final Map<String, Object> variables = new HashMap<>();
 
   private static ValueKeeper getInstance() {
     return varThread.get();

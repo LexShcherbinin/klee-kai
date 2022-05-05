@@ -6,8 +6,8 @@ import static com.github.lexshcherbinin.kleekai.ui.KleeKaiPage.TIME_FOR_DOWNLOAD
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 import java.io.File;
 import java.util.List;

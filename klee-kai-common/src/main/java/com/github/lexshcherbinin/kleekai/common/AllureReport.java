@@ -1,4 +1,4 @@
-package com.github.lexshcherbinin.kleekai.helpers;
+package com.github.lexshcherbinin.kleekai.common;
 
 import static io.qameta.allure.util.ResultsUtils.EPIC_LABEL_NAME;
 import static io.qameta.allure.util.ResultsUtils.FEATURE_LABEL_NAME;

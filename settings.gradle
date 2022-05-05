@@ -1,2 +1,5 @@
 rootProject.name = 'klee-kai'
 
+include 'klee-kai-common'
+include 'klee-kai-ui'
+include 'klee-kai-api'

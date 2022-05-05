@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.helpers.ValueKeeper;
+import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
