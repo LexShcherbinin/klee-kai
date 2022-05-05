@@ -1,10 +1,10 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 import java.util.Set;
 import org.openqa.selenium.Dimension;
@@ -12,7 +12,7 @@ import org.openqa.selenium.Dimension;
 /**
  * Шаги для взаимодействия с браузером
  */
-public interface ManageBrowserSteps<T extends BasePage<T>> {
+public interface ManageBrowserSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнена очистка cookies браузера")
   default T deleteCookies() {

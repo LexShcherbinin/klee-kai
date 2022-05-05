@@ -1,4 +1,4 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Condition.readonly;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 import java.text.SimpleDateFormat;
 import java.util.Map;
@@ -20,7 +20,7 @@ import org.openqa.selenium.Keys;
 /**
  * Шаги для взаимодействия с полями страницы
  */
-public interface FieldSteps<T extends BasePage<T>> {
+public interface FieldSteps<T extends KleeKaiPage<T>> {
 
   /**
    * Возвращает локатор элемента, отвечающий определённому значению value из выпадающего списка
@@ -31,7 +31,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Выбрать из выпадающего списка '{elementName}' значение '{value}'")
   default T selectFromDropdownList(String elementName, String value) {
-    SelenideElement openValueListButton = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement openValueListButton = ((KleeKaiPage<?>) this).getElement(elementName);
     openValueListButton.click();
 
     SelenideElement valueElement = $x(getValueXpath(value));
@@ -43,7 +43,7 @@ public interface FieldSteps<T extends BasePage<T>> {
   //TODO: Между setValue и sendKeys всё-таки есть различия. Разобраться, чем они отличаются и сделать соответствующие методы
   @Step("В поле '{elementName}' введено значение '{value}'")
   default T setFieldValue(String elementName, String value) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
 //    element.setValue(value);
 //    element.sendKeys(value);
 //    element.val(value);
@@ -62,7 +62,7 @@ public interface FieldSteps<T extends BasePage<T>> {
   @Deprecated
   @Step("В поле '{elementName}' введено значение '{value}'")
   default T sendKeysToField(String elementName, String value) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     element.sendKeys(value);
 
     return (T) this;
@@ -79,7 +79,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Поле '{elementName}' очищено")
   default T cleanField(String elementName) {
-    SelenideElement valueInput = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement valueInput = ((KleeKaiPage<?>) this).getElement(elementName);
 
     do {
       valueInput.shouldNotBe(readonly, disabled).doubleClick().sendKeys(Keys.DELETE);
@@ -101,14 +101,14 @@ public interface FieldSteps<T extends BasePage<T>> {
       currentStringDate = new SimpleDateFormat("dd.MM.yyyy").format(date);
     }
 
-    SelenideElement valueInput = ((BasePage<?>) this).getElement(fieldName);
+    SelenideElement valueInput = ((KleeKaiPage<?>) this).getElement(fieldName);
     valueInput.setValue(currentStringDate);
     return (T) this;
   }
 
   @Step("Проверка, что значение поля '{elementName}' равно '{value}'")
   default T checkFieldEqualsValue(String elementName, String expectedValue) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     String actualValue = BaseMethods.getAnyElementText(element);
 
     assertEquals(
@@ -120,7 +120,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Проверка, что поле '{elementName}' содержит значение '{value}'")
   default T checkFieldContainsValue(String elementName, String expectedValue) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     String actualValue = BaseMethods.getAnyElementText(element);
 
     assertTrue(
@@ -132,7 +132,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Проверка, что поле '{elementName}' пустое")
   default T checkFieldIsEmpty(String elementName) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     String actualValue = BaseMethods.getAnyElementText(element);
 
     assertEquals(
@@ -144,7 +144,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Проверить, что количество символов в поле '{elementName}' равно заданному '{maxChars}'")
   default T checkAmountOfCharInField(String elementName, int maxChars) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     int length = Objects.requireNonNull(element.getValue()).length();
 
     assertEquals(
@@ -156,7 +156,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Проверка, что поле '{elementName}' доступно для редактирования")
   default T checkFieldIsNotReadonly(String elementName) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
 
     assertFalse(
         element.is(readonly),
@@ -167,7 +167,7 @@ public interface FieldSteps<T extends BasePage<T>> {
 
   @Step("Проверка, что поле '{elementName}' не доступно для редактирования")
   default T checkFieldIsReadonly(String elementName) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
 
     assertTrue(
         element.is(readonly),

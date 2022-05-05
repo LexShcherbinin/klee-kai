@@ -1,9 +1,9 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import com.codeborne.selenide.Selenide;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import java.awt.AWTException;
@@ -15,7 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 /**
  * Шаги для тестирования взаимодействия с внешним окружением
  */
-public interface RoundUpSteps<T extends BasePage<T>> {
+public interface RoundUpSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнено ожидание в течение '{seconds}' секунд")
   default T waitForSeconds(long seconds) {

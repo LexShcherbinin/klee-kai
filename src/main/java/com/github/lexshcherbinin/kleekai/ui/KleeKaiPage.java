@@ -7,10 +7,9 @@ import static java.util.stream.Collectors.toMap;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.AutotestDataException;
-import com.github.lexshcherbinin.kleekai.steps.ManageBrowserSteps;
-import com.github.lexshcherbinin.kleekai.steps.RoundUpSteps;
-import com.github.lexshcherbinin.kleekai.steps.WebPageInteractionSteps;
+import com.github.lexshcherbinin.kleekai.ui.steps.ManageBrowserSteps;
+import com.github.lexshcherbinin.kleekai.ui.steps.RoundUpSteps;
+import com.github.lexshcherbinin.kleekai.ui.steps.WebPageInteractionSteps;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Block;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Hidden;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Name;
@@ -28,7 +27,7 @@ import java.util.Map;
 /**
  * Главный пейдж-класс, от которого наследуются все остальные пейджи
  */
-public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<D>, ManageBrowserSteps<D>, RoundUpSteps<D> {
+public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteractionSteps<D>, ManageBrowserSteps<D>, RoundUpSteps<D> {
 
   public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds((long) getConfigValueOrDefault("default_timeout", 30L));
 
@@ -52,19 +51,19 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
   /**
    * Список всех блоков страницы, обозначенных аннотацией "Block"
    */
-  private List<BasePage> blocks;
+  private List<KleeKaiPage> blocks;
 
   /**
    * Единая точка входа для всех тестов: BasePage.getInstance().goToUrl(url)...
    */
-  public static BasePage<?> getInstance() {
-    return new BasePage<>();
+  public static KleeKaiPage<?> getInstance() {
+    return new KleeKaiPage<>();
   }
 
   /**
    * Получение экземпляра страницы
    */
-  public final <T extends BasePage<T>> T getPage(Class<T> page) {
+  public final <T extends KleeKaiPage<T>> T getPage(Class<T> page) {
     Allure.step(String.format("Выполнена загрузка страницы '%s'", getPageName(page)));
     T instance = Selenide.page(page);
     instance.initializePageElements(page, instance);
@@ -74,7 +73,7 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
   /**
    * Получение экземпляра блока страницы
    */
-  public final <T extends BasePage<T>> T getBlock(Class<T> page) {
+  public final <T extends KleeKaiPage<T>> T getBlock(Class<T> page) {
     T instance = Selenide.page(page);
     instance.initializePageElements(page, instance);
     return instance;
@@ -112,7 +111,7 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
       return (SelenideElement) namedElements.get(elementName);
 
     } else {
-      for (BasePage<?> block : blocks) {
+      for (KleeKaiPage<?> block : blocks) {
         SelenideElement elementInBlock = block.getElementInBlock(elementName);
 
         if (elementInBlock != null) {
@@ -135,7 +134,7 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
   /**
    * Инициализация элементов страницы. Проверяет наличие обязательных элементов и отсутствие тех, что быть на странице не должны
    */
-  <T extends BasePage<T>> void initializePageElements(Class<T> page, BasePage<? extends BasePage<?>> instance) {
+  <T extends KleeKaiPage<T>> void initializePageElements(Class<T> page, KleeKaiPage<? extends KleeKaiPage<?>> instance) {
     instance.namedElements = readNamedElements(page);
     instance.requiredElements = readRequiredElements(page);
     instance.hiddenElements = readHiddenElements(page);
@@ -190,10 +189,10 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
   /**
    * Поиск блоков страницы, обозначенных аннотацией "Block"
    */
-  private <T> List<BasePage> readBlocks(Class<T> page) {
+  private <T> List<KleeKaiPage> readBlocks(Class<T> page) {
     return Arrays.stream(page.getDeclaredFields())
         .filter(field -> field.getDeclaredAnnotation(Block.class) != null)
-        .map(field -> ((BasePage<?>) getFieldValue(page, field)))
+        .map(field -> ((KleeKaiPage<?>) getFieldValue(page, field)))
         .collect(toList());
   }
 
@@ -225,7 +224,7 @@ public class BasePage<D extends BasePage<D>> implements WebPageInteractionSteps<
 
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
-      throw new AutotestDataException("Не удалось получить значение поля " + field);
+      throw new IllegalArgumentException("Не удалось получить значение поля " + field);
     }
   }
 }

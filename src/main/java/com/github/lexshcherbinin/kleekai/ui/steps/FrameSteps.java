@@ -1,18 +1,18 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 
 /**
  * Шаги для взаимодействия с фреймами на странице
  */
-public interface FrameSteps<T extends BasePage<T>> {
+public interface FrameSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнен переход на фрейм '{elementName}'")
   default T switchToFrame(String elementName) {
-    SelenideElement frame = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement frame = ((KleeKaiPage<?>) this).getElement(elementName);
     Selenide.switchTo().frame(frame);
     return (T) this;
   }

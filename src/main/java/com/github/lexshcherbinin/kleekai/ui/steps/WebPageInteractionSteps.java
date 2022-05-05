@@ -1,12 +1,12 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.github.lexshcherbinin.kleekai.ui.BasePage.TIME_FOR_DOWNLOAD_FILE;
+import static com.github.lexshcherbinin.kleekai.ui.KleeKaiPage.TIME_FOR_DOWNLOAD_FILE;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import io.qameta.allure.Step;
 import java.io.File;
@@ -17,7 +17,7 @@ import org.openqa.selenium.interactions.Actions;
 /**
  * Шаги для взаимодействия с вэб-страницей
  */
-public interface WebPageInteractionSteps<T extends BasePage<T>> {
+public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнен переход по ссылке '{url}'")
   default T goToUrl(String url) {
@@ -41,7 +41,7 @@ public interface WebPageInteractionSteps<T extends BasePage<T>> {
 
   @Step("Страница прокручена до элемента '{elementName}'")
   default T scrollPageToElement(String elementName) {
-    ((BasePage<?>) this).getElement(elementName).scrollTo();
+    ((KleeKaiPage<?>) this).getElement(elementName).scrollTo();
     return (T) this;
   }
 
@@ -54,7 +54,7 @@ public interface WebPageInteractionSteps<T extends BasePage<T>> {
   @Step("Выполнена загрузка файла '{fileName}'")
   default T clickUploadFile(String buttonName, String fileName) {
     BaseMethods.attachExelFile(fileName, fileName);
-    ((BasePage<?>) this).getElement(buttonName).uploadFile(new File(fileName));
+    ((KleeKaiPage<?>) this).getElement(buttonName).uploadFile(new File(fileName));
     return (T) this;
   }
 
@@ -68,7 +68,7 @@ public interface WebPageInteractionSteps<T extends BasePage<T>> {
 
   @Step("Выполнено скачивание файла")
   default T clickDownloadFile(String elementName) {
-    SelenideElement element = ((BasePage<?>) this).getElement(elementName);
+    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     element.should(Condition.visible).click();
 
     Selenide.sleep(TIME_FOR_DOWNLOAD_FILE);

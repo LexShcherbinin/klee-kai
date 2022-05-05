@@ -15,15 +15,15 @@ import org.hamcrest.Matcher;
  *
  * @param <T> - тип страницы
  */
-public class BaseApiPage<T extends BaseApiPage<T>> {
+public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
 
   protected Response response;
 
-  public static BaseApiPage<?> getInstance() {
-    return new BaseApiPage<>();
+  public static KleeKaiApiPage<?> getInstance() {
+    return new KleeKaiApiPage<>();
   }
 
-  public final <D extends BaseApiPage<D>> D getApiPage(final Class<D> pageClass) {
+  public final <D extends KleeKaiApiPage<D>> D getApiPage(final Class<D> pageClass) {
     assertNotEquals(this.getClass(), pageClass, "Вы уже в этом пейдже");
     return new ApiPageFactory().createApiPage(pageClass, response);
   }

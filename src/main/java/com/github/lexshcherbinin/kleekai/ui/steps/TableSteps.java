@@ -1,4 +1,4 @@
-package com.github.lexshcherbinin.kleekai.steps;
+package com.github.lexshcherbinin.kleekai.ui.steps;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
-import com.github.lexshcherbinin.kleekai.ui.BasePage;
+import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Шаги для взаимодействия с таблицами. Требует реализации методов: - getCellXpath(String column, int row) - getColumnXpath(String
  * column)
  */
-public interface TableSteps<T extends BasePage<T>> {
+public interface TableSteps<T extends KleeKaiPage<T>> {
 
   String getCellXpath(String column, int row);
 
@@ -56,7 +56,7 @@ public interface TableSteps<T extends BasePage<T>> {
 
   @Step("Выполнен клик по кнопке '{name}'")
   default T clickButton(String name) {
-    ((BasePage<?>) this).getElement(name).click();
+    ((KleeKaiPage<?>) this).getElement(name).click();
     return (T) this;
   }
 
@@ -148,7 +148,7 @@ public interface TableSteps<T extends BasePage<T>> {
 
   @Step("Проверка, что сообщение '{text}' отображается на странице")
   default T checkMessageIsDisplayed(String text) {
-    SelenideElement message = ((BasePage<?>) this).getElement(text);
+    SelenideElement message = ((KleeKaiPage<?>) this).getElement(text);
     assertTrue(
         message.shouldBe(Condition.visible).isDisplayed(),
         String.format("Сообщение '%s' не отображается на странице", message));

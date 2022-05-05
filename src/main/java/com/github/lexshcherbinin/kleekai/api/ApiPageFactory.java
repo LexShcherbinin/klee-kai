@@ -18,9 +18,9 @@ public class ApiPageFactory {
    * @param <T>          - тип страницы
    * @return - возвращает инстанс созданной страницы
    */
-  public <T extends BaseApiPage<T>> T createApiPage(Class<T> apiPageClass, Response response) {
+  public <T extends KleeKaiApiPage<T>> T createApiPage(Class<T> apiPageClass, Response response) {
     try {
-      Class<BaseApiPage<?>> superClass = (Class<BaseApiPage<?>>) apiPageClass.getSuperclass();
+      Class<KleeKaiApiPage<?>> superClass = (Class<KleeKaiApiPage<?>>) apiPageClass.getSuperclass();
       Constructor<T> constructor = apiPageClass.getConstructor();
       constructor.setAccessible(true);
       T instance = constructor.newInstance();
