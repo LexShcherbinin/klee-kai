@@ -11,8 +11,8 @@ plugins {
 
 allure {
     version = allureVersion
-    autoconfigure = true
-    aspectjweaver = true
+//    autoconfigure = true
+//    aspectjweaver = true
     allureJavaVersion = JavaVersion.VERSION_18
 }
 

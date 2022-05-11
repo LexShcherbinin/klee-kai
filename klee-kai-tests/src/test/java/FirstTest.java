@@ -14,6 +14,7 @@ public class FirstTest {
 
   @Test
   public void first() {
+
     KleeKaiPage.getInstance()
         .goToUrl("https://yandex.ru")
         .waitForSeconds(2);
