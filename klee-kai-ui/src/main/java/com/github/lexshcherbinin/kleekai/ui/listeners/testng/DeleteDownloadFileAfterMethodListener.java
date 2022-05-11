@@ -1,6 +1,6 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.testng;
 
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.common.FileCreator;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestContext;
@@ -13,7 +13,7 @@ public final class DeleteDownloadFileAfterMethodListener implements IInvokedMeth
 
   @Override
   public void afterInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
-    BaseMethods.deleteDirectory(System.getProperty("selenide.downloadsFolder"));
+    FileCreator.deleteDirectory(System.getProperty("selenide.downloadsFolder"));
   }
 
 }

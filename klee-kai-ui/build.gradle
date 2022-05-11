@@ -28,6 +28,4 @@ dependencies {
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
     implementation project(":klee-kai-common")
-
-    implementation "org.apache.poi:poi-ooxml:5.2.0"
 }

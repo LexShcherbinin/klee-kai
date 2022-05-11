@@ -19,8 +19,8 @@ public final class TakeScreenshotAndCloseWebDriverAfterMethodListener implements
     }
 
     if (WebDriverRunner.hasWebDriverStarted()) {
-      BaseMethods.deleteAllCookies();
-      BaseMethods.closeWebDriver();
+      WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+      WebDriverRunner.closeWebDriver();
     }
   }
 

@@ -24,8 +24,8 @@ public final class TakeScreenshotAndCloseWebDriverExtension implements AfterEach
           }
       );
 
-      BaseMethods.deleteAllCookies();
-      BaseMethods.closeWebDriver();
+      WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+      WebDriverRunner.closeWebDriver();
     }
   }
 

@@ -1,6 +1,7 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.junit;
 
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.common.FileCreator;
+import com.github.lexshcherbinin.kleekai.ui.Environment;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -11,16 +12,16 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  */
 public final class DeleteTestDataExtension implements BeforeAllCallback, AfterAllCallback {
 
-  private static final String PATH = BaseMethods.getTestDataPath();
+  private static final String PATH = Environment.getTestDataPath();
 
   @Override
   public void beforeAll(ExtensionContext context) {
-    BaseMethods.createDirectory(PATH);
+    FileCreator.createDirectory(PATH);
   }
 
   @Override
   public void afterAll(ExtensionContext context) {
-    BaseMethods.deleteDirectory(PATH);
+    FileCreator.deleteDirectory(PATH);
   }
 
 }

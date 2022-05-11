@@ -1,6 +1,7 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.testng;
 
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.common.FileCreator;
+import com.github.lexshcherbinin.kleekai.ui.Environment;
 import org.testng.IClassListener;
 import org.testng.ITestClass;
 
@@ -10,16 +11,16 @@ import org.testng.ITestClass;
  */
 public final class DeleteTestDataAfterClassListener implements IClassListener {
 
-  private static final String PATH = BaseMethods.getTestDataPath();
+  private static final String PATH = Environment.getTestDataPath();
 
   @Override
   public void onBeforeClass(ITestClass testClass) {
-    BaseMethods.createDirectory(PATH);
+    FileCreator.createDirectory(PATH);
   }
 
   @Override
   public void onAfterClass(ITestClass testClass) {
-    BaseMethods.deleteDirectory(PATH);
+    FileCreator.deleteDirectory(PATH);
   }
 
 }

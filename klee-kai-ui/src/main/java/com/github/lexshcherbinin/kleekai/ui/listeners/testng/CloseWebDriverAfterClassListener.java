@@ -1,7 +1,6 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.testng;
 
 import com.codeborne.selenide.WebDriverRunner;
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import org.testng.IClassListener;
 import org.testng.ITestClass;
 
@@ -15,8 +14,8 @@ public final class CloseWebDriverAfterClassListener implements IClassListener {
   @Override
   public void onAfterClass(ITestClass testClass) {
     if (WebDriverRunner.hasWebDriverStarted()) {
-      BaseMethods.deleteAllCookies();
-      BaseMethods.closeWebDriver();
+      WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+      WebDriverRunner.closeWebDriver();
     }
   }
 

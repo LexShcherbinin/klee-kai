@@ -1,6 +1,6 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.testng;
 
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.ui.Environment;
 import org.testng.IClassListener;
 import org.testng.ITestClass;
 
@@ -11,7 +11,7 @@ public final class SetupSelenideEnvironmentBeforeClassListener implements IClass
 
   @Override
   public void onBeforeClass(ITestClass testClass) {
-    BaseMethods.setupSelenideEnvironment();
+    Environment.setupSelenideEnvironment();
   }
 
 }

@@ -1,6 +1,6 @@
 package com.github.lexshcherbinin.kleekai.ui.listeners.junit;
 
-import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import com.github.lexshcherbinin.kleekai.ui.Environment;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -11,7 +11,7 @@ public final class SetupSelenideEnvironmentBeforeAllExtension implements BeforeA
 
   @Override
   public void beforeAll(ExtensionContext context) {
-    BaseMethods.setupSelenideEnvironment();
+    Environment.setupSelenideEnvironment();
   }
 
 }
