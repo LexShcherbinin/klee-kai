@@ -6,10 +6,10 @@ dependencies {
     implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
 
     //Config
-    implementation "com.typesafe:config:1.4.2"
+    implementation "com.typesafe:config:${configVersion}"
 
     //Selenide
-    implementation "com.codeborne:selenide:6.4.0"
+    implementation "com.codeborne:selenide:${selenideVersion}"
 
     //JUnit
     implementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
@@ -20,12 +20,18 @@ dependencies {
     implementation "org.testng:testng:${testNgVersion}"
 
     //AssertJ
-    implementation "org.assertj:assertj-core:3.22.0"
+    implementation "org.assertj:assertj-core:${assertjVersion}"
 
     //REST Assured
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     implementation "io.rest-assured:json-path:${restAssuredVersion}"
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
+
+    //Cucumber
+    implementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    implementation "io.cucumber:cucumber-core:${cucumberVersion}"
+    implementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+    implementation "io.cucumber:cucumber-testng:${cucumberVersion}"
 
     implementation project(":klee-kai-common")
 }

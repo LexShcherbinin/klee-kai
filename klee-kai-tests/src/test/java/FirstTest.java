@@ -1,12 +1,12 @@
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import com.github.lexshcherbinin.kleekai.ui.listeners.junit.AllureHideParametersExtension;
-import com.github.lexshcherbinin.kleekai.ui.listeners.junit.SetupSelenideEnvironmentBeforeAllExtension;
+import com.github.lexshcherbinin.kleekai.ui.listeners.junit.SetupSelenideEnvironmentExtension;
 import com.github.lexshcherbinin.kleekai.ui.listeners.junit.TakeScreenshotAndCloseWebDriverExtension;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith({
-    SetupSelenideEnvironmentBeforeAllExtension.class,
+    SetupSelenideEnvironmentExtension.class,
     TakeScreenshotAndCloseWebDriverExtension.class,
     AllureHideParametersExtension.class
 })

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 /**
  * Задание настроек окружения
  */
-public final class SetupSelenideEnvironmentBeforeAllExtension implements BeforeAllCallback {
+public final class SetupSelenideEnvironmentExtension implements BeforeAllCallback {
 
   @Override
   public void beforeAll(ExtensionContext context) {
