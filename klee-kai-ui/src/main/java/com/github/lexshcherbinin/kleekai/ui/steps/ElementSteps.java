@@ -198,6 +198,7 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
   default T checkElementColor(String elementName, String color) { //формат цвета = rgba(244, 67, 54, 1)
     SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     String elementColor = element.getCssValue("color");
+//    element.shouldHave(Condition.cssValue("color", color));
 
     assertTrue(
         elementColor.contains(color),
@@ -243,12 +244,11 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-    @Step("Проверка, что элемент со значением '{elementValue}' не существует на странице")
+  @Step("Проверка, что элемент со значением '{elementValue}' не существует на странице")
   default T checkElementDoesNotExist(String elementValue) {
-    SelenideElement element = $x("//a[.=' "+elementValue+" ']");
+    SelenideElement element = $x("//a[.=' " + elementValue + " ']");
 
-
-    List elements = $$x("//a[.=' "+elementValue+" ']");
+    List elements = $$x("//a[.=' " + elementValue + " ']");
     assertEquals(
 
         elements.size(), 0,

@@ -1,27 +1,23 @@
-package com.github.lexshcherbinin.kleekai.ui.listeners;
-
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+package com.github.lexshcherbinin.kleekai.ui.listeners.testng;
 
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
+import org.testng.IClassListener;
+import org.testng.ITestClass;
 
 /**
  * Очистка всех cookies и закрытие браузера после прогона всех тестов CloseWebDriverAfterClassListener нужен только в тех тестах,
  * где до нужной страницы надо долго добираться и только потом там прогонять несколько тестов, (чтобы после первого упавшего не
  * проходить до этой страницы заново)
  */
-public final class CloseWebDriverExtension implements AfterAllCallback {
+public final class CloseWebDriverAfterClassListener implements IClassListener {
 
   @Override
-  public void afterAll(ExtensionContext context) {
+  public void onAfterClass(ITestClass testClass) {
     if (WebDriverRunner.hasWebDriverStarted()) {
-      closeWebDriver();
+      BaseMethods.deleteAllCookies();
+      BaseMethods.closeWebDriver();
     }
   }
 
-  public void closeWebDriver() {
-    getWebDriver().manage().deleteAllCookies();
-    WebDriverRunner.closeWebDriver();
-  }
 }

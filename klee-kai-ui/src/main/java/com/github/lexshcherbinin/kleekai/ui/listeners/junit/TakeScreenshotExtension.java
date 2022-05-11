@@ -1,11 +1,10 @@
-package com.github.lexshcherbinin.kleekai.ui.listeners;
+package com.github.lexshcherbinin.kleekai.ui.listeners.junit;
 
 import static io.qameta.allure.model.Status.FAILED;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -20,15 +19,11 @@ public final class TakeScreenshotExtension implements AfterEachCallback {
       Allure.getLifecycle().updateStep(
           s -> {
             if (s.getStatus().equals(FAILED)) {
-              takeScreenshot();
+              BaseMethods.takeScreenshot();
             }
           }
       );
     }
   }
 
-  @Step("Снятие скриншота текущей страницы")
-  public void takeScreenshot() {
-    BaseMethods.takeScreenshot();
-  }
 }

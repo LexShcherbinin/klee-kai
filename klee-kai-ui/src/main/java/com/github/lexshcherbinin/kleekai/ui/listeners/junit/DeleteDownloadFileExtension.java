@@ -1,8 +1,6 @@
-package com.github.lexshcherbinin.kleekai.ui.listeners;
+package com.github.lexshcherbinin.kleekai.ui.listeners.junit;
 
-import java.io.File;
-import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -13,11 +11,7 @@ public final class DeleteDownloadFileExtension implements AfterEachCallback {
 
   @Override
   public void afterEach(ExtensionContext context) {
-    try {
-      FileUtils.deleteDirectory(new File(System.getProperty("selenide.downloadsFolder")));
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    BaseMethods.deleteDirectory(System.getProperty("selenide.downloadsFolder"));
   }
+
 }

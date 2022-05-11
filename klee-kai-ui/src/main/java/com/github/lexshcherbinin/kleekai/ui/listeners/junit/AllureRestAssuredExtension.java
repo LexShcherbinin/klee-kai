@@ -1,4 +1,4 @@
-package com.github.lexshcherbinin.kleekai.ui.listeners;
+package com.github.lexshcherbinin.kleekai.ui.listeners.junit;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -15,4 +15,5 @@ public final class AllureRestAssuredExtension implements BeforeAllCallback {
     RestAssured.useRelaxedHTTPSValidation();
     RestAssured.replaceFiltersWith(new AllureRestAssured());
   }
+
 }
