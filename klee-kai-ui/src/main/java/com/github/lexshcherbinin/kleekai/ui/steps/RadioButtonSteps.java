@@ -1,15 +1,11 @@
 package com.github.lexshcherbinin.kleekai.ui.steps;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 
 /**
- * Шаги для взаимодействия с радиобаттонами страницы
+ * Шаги для взаимодействия с радиобаттонами страницы.
  */
 public interface RadioButtonSteps<T extends KleeKaiPage<T>> {
 
@@ -33,23 +29,13 @@ public interface RadioButtonSteps<T extends KleeKaiPage<T>> {
 
   @Step("Проверка, что радиобаттон '{elementName}' кликабелен")
   default T checkRadioButtonIsClickable(String elementName) {
-    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
-
-    assertTrue(
-        element.is(Condition.enabled),
-        String.format("Радиобаттон '%s' не кликабелен", elementName));
-
+    ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.enabled);
     return (T) this;
   }
 
   @Step("Проверка, что радиобаттон '{elementName}' не кликабелен")
   default T checkRadioButtonIsNotClickable(String elementName) {
-    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
-
-    assertFalse(
-        element.is(Condition.enabled),
-        String.format("Радиобаттон '%s' кликабелен", elementName));
-
+    ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.enabled);
     return (T) this;
   }
 

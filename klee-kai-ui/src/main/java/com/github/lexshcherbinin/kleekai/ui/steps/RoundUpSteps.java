@@ -1,19 +1,15 @@
 package com.github.lexshcherbinin.kleekai.ui.steps;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
 import com.codeborne.selenide.Selenide;
+import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import java.awt.AWTException;
 import java.awt.Robot;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 /**
- * Шаги для тестирования взаимодействия с внешним окружением
+ * Шаги для тестирования взаимодействия с внешним окружением.
  */
 public interface RoundUpSteps<T extends KleeKaiPage<T>> {
 
@@ -34,6 +30,7 @@ public interface RoundUpSteps<T extends KleeKaiPage<T>> {
   default T pushButtonOnKeyboard(int key) {
     try {
       new Robot().keyPress(key);
+
     } catch (AWTException e) {
       e.printStackTrace();
     }
@@ -48,8 +45,7 @@ public interface RoundUpSteps<T extends KleeKaiPage<T>> {
 
   @Step("Снят скриншот текущей страницы")
   default T takeScreenshot() {
-    final byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
-    Allure.getLifecycle().addAttachment("Скриншот", "", "image/png", screenshot);
+    BaseMethods.takeScreenshot();
     return (T) this;
   }
 

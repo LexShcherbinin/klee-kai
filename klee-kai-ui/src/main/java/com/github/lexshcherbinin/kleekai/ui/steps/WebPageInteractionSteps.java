@@ -3,9 +3,7 @@ package com.github.lexshcherbinin.kleekai.ui.steps;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.github.lexshcherbinin.kleekai.ui.KleeKaiPage.TIME_FOR_DOWNLOAD_FILE;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
@@ -15,7 +13,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
 /**
- * Шаги для взаимодействия с вэб-страницей
+ * Шаги для взаимодействия с вэб-страницей.
  */
 public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
 
@@ -58,7 +56,7 @@ public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Выполнена загрузка файлов '{fileName}'")
+  @Step("Выполнена загрузка файлов '{fileNameList}'")
   default T clickUploadFileList(String buttonName, List<String> fileNameList) {
     for (String fileName : fileNameList) {
       clickUploadFile(buttonName, fileName);
@@ -68,9 +66,7 @@ public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнено скачивание файла")
   default T clickDownloadFile(String elementName) {
-    SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
-    element.should(Condition.visible).click();
-
+    ((KleeKaiPage<?>) this).getElement(elementName).click();
     Selenide.sleep(TIME_FOR_DOWNLOAD_FILE);
     return (T) this;
   }

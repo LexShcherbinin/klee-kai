@@ -6,7 +6,7 @@ import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 
 /**
- * Шаги для взаимодействия с фреймами на странице
+ * Шаги для взаимодействия с фреймами на странице.
  */
 public interface FrameSteps<T extends KleeKaiPage<T>> {
 
@@ -34,4 +34,5 @@ public interface FrameSteps<T extends KleeKaiPage<T>> {
     Selenide.switchTo().defaultContent();
     return (T) this;
   }
+
 }

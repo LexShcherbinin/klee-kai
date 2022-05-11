@@ -3,14 +3,13 @@ package com.github.lexshcherbinin.kleekai.ui.steps;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
 import java.util.Set;
 import org.openqa.selenium.Dimension;
 
 /**
- * Шаги для взаимодействия с браузером
+ * Шаги для взаимодействия с браузером.
  */
 public interface ManageBrowserSteps<T extends KleeKaiPage<T>> {
 
@@ -29,19 +28,19 @@ public interface ManageBrowserSteps<T extends KleeKaiPage<T>> {
 
   @Step("Выполнено закрытие текущей вкладки")
   default T closeCurrentTab() {
-    WebDriverRunner.getWebDriver().close();
+    getWebDriver().close();
     return (T) this;
   }
 
   @Step("Установлено разрешение окна браузера {width}x{height}")
   default T setBrowserWindowSize(int width, int height) {
-    WebDriverRunner.getWebDriver().manage().window().setSize(new Dimension(width, height));
+    getWebDriver().manage().window().setSize(new Dimension(width, height));
     return (T) this;
   }
 
   @Step("Окно браузера развернуто на весь экран")
   default T expandWindowToFullScreen() {
-    WebDriverRunner.getWebDriver().manage().window().maximize();
+    getWebDriver().manage().window().maximize();
     return (T) this;
   }
 

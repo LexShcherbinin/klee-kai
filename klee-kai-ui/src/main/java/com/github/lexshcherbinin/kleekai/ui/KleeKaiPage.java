@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Block;
@@ -126,9 +127,8 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   /**
    * Получение списка элементов страницы по имени (@Name("Имя элемента"))
    */
-  //TODO: Надо доработать метод
-  public List<SelenideElement> getElementList(String elementName) {
-    return ((List<SelenideElement>) namedElements.get(elementName));
+  public ElementsCollection getElementList(String elementName) {
+    return (ElementsCollection) namedElements.get(elementName);
   }
 
   /**
