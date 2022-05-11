@@ -6,11 +6,6 @@ dependencies {
     implementation "io.qameta.allure:allure-selenide:${allureVersion}"
     implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
 
-    //JUnit
-    implementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
-    implementation "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
-    implementation "org.junit.vintage:junit-vintage-engine:${junitJupiterVersion}"
-
     //Config
     implementation "com.typesafe:config:1.4.2"
 
@@ -18,6 +13,9 @@ dependencies {
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     implementation "io.rest-assured:json-path:${restAssuredVersion}"
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
+
+    //AssertJ
+    implementation "org.assertj:assertj-core:${assertjVersion}"
 
     //api
     implementation "org.awaitility:awaitility:4.2.0"

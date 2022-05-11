@@ -1,11 +1,10 @@
 package com.github.lexshcherbinin.kleekai.api;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
+import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import java.time.Duration;
+import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ThrowingRunnable;
 import org.hamcrest.Matcher;
@@ -24,7 +23,10 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
   }
 
   public final <D extends KleeKaiApiPage<D>> D getApiPage(final Class<D> pageClass) {
-    assertNotEquals(this.getClass(), pageClass, "Вы уже в этом пейдже");
+    if (this.getClass().equals(pageClass)) {
+      throw new IllegalArgumentException("Вы уже находитесь в пейдже " + pageClass.getSimpleName());
+    }
+
     return new ApiPageFactory().createApiPage(pageClass, response);
   }
 
@@ -75,8 +77,10 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
   public T checkStatusCode(int statusCode) {
     int actualValue = getStatusCode();
 
-    assertEquals(actualValue, statusCode,
-        String.format("Ожидаемое значение - '%s', фактическое - '%s'", statusCode, actualValue));
+    Assertions
+        .assertThat(actualValue)
+        .withFailMessage(String.format("Ожидаемое значение - '%s', фактическое - '%s'", statusCode, actualValue))
+        .isEqualTo(statusCode);
 
     return (T) this;
   }
@@ -92,8 +96,10 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
   public T checkFieldValue(String field, Object value) {
     Object actualValue = response.jsonPath().get(field);
 
-    assertEquals(actualValue, value,
-        String.format("Ожидаемое значение - '%s', фактическое - '%s'", value, actualValue));
+    Assertions
+        .assertThat(actualValue)
+        .withFailMessage(String.format("Ожидаемое значение - '%s', фактическое - '%s'", value, actualValue))
+        .isEqualTo(value);
 
     return (T) this;
   }
@@ -120,6 +126,12 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
   @Step("Проверка, что тело ответа совпадает с матчером '{matcher}'")
   public T checkMatcher(Matcher<?> matcher) {
     response.then().body(matcher);
+    return (T) this;
+  }
+
+  @Step("Сохранить значение из поля {field} с ключём {key}")
+  public T saveFieldValue(String field, String key) {
+    ValueKeeper.saveValue(key, response.jsonPath().get(field));
     return (T) this;
   }
 

@@ -16,8 +16,8 @@ public class ValueKeeper {
     return varThread.get();
   }
 
-  public static void saveValue(String name, Object value) {
-    getInstance().variables.put(name, value);
+  public static void saveValue(String key, Object value) {
+    getInstance().variables.put(key, value);
   }
 
   public static Object getValue(String name) {
