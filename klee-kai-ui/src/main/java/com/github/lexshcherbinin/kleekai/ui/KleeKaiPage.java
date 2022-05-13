@@ -74,7 +74,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   /**
    * Получение экземпляра блока страницы
    */
-  public final <T extends KleeKaiPage<T>> T getBlock(Class<T> page) {
+  private <T extends KleeKaiPage<T>> T getBlock(Class<T> page) {
     T instance = Selenide.page(page);
     instance.initializePageElements(page, instance);
     return instance;
@@ -96,10 +96,18 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
    * Получение элемента страницы по имени (@Name("Имя элемента"))
    */
   public SelenideElement getElement(String elementName) {
-    SelenideElement element = getElementInBlock(elementName);
+    SelenideElement element = searchElement(elementName);
+    SelenideElement elementInBlock = null;
+
+    if (!blocks.isEmpty()) {
+      elementInBlock = getElementInBlock(elementName);
+    }
 
     if (element != null) {
       return element;
+
+    } else if (elementInBlock != null) {
+      return elementInBlock;
 
     } else {
       throw new IllegalArgumentException(
@@ -107,17 +115,22 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
     }
   }
 
+  /**
+   * Поиск элемента страницы по имени (@Name("Имя элемента"))
+   */
+  public SelenideElement searchElement(String elementName) {
+    return  (SelenideElement) namedElements.get(elementName);
+  }
+
+  /**
+   * Поиск элемента в блоках страницы по имени (@Name("Имя элемента"))
+   */
   public SelenideElement getElementInBlock(String elementName) {
-    if (namedElements.get(elementName) != null) {
-      return (SelenideElement) namedElements.get(elementName);
+    for (KleeKaiPage<?> block : blocks) {
+      SelenideElement elementInBlock = block.searchElement(elementName);
 
-    } else {
-      for (KleeKaiPage<?> block : blocks) {
-        SelenideElement elementInBlock = block.getElementInBlock(elementName);
-
-        if (elementInBlock != null) {
-          return elementInBlock;
-        }
+      if (elementInBlock != null) {
+        return elementInBlock;
       }
     }
 
@@ -192,7 +205,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   private <T> List<KleeKaiPage> readBlocks(Class<T> page) {
     return Arrays.stream(page.getDeclaredFields())
         .filter(field -> field.getDeclaredAnnotation(Block.class) != null)
-        .map(field -> ((KleeKaiPage<?>) getFieldValue(page, field)))
+        .map(field -> getBlock((Class) field.getType()))
         .collect(toList());
   }
 
@@ -224,7 +237,8 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
 
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
-      throw new IllegalArgumentException("Не удалось получить значение поля " + field);
+      throw new AutotestDataException("Не удалось получить значение поля " + field);
     }
   }
+
 }

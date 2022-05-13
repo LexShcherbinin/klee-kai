@@ -66,13 +66,13 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Проверка, что элемент {elementName} существует на странице")
+  @Step("Проверка, что элемент '{elementName}' существует на странице")
   default T checkElementIsExist(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.exist);
     return (T) this;
   }
 
-  @Step("Проверка, что элемент {elementName} не существует на странице")
+  @Step("Проверка, что элемент '{elementName}' не существует на странице")
   default T checkElementIsNotExist(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.exist);
     return (T) this;
@@ -122,7 +122,7 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Ожидание появления на странице элемента '{elementName}' в течение {seconds} секунд")
+  @Step("Ожидание появления на странице элемента '{elementName}' в течение '{seconds}' секунд")
   default T waitUntilElementIsDisplayed(String elementName, int seconds) {
     ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.visible, Duration.ofSeconds(seconds));
     return (T) this;
