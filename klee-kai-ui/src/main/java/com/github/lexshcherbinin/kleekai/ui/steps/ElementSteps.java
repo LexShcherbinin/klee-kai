@@ -157,13 +157,13 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
 
   @Step("Проверка, что элемент '{elementName}' выбран'")
   default T checkElementIsSelected(String elementName) {
-    ((KleeKaiPage<?>) this).getElement(elementName).shouldBe(Condition.selected);
+    ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.selected);
     return (T) this;
   }
 
   @Step("Проверка, что элемент '{elementName}' не выбран'")
   default T checkElementIsNotSelected(String elementName) {
-    ((KleeKaiPage<?>) this).getElement(elementName).shouldNotBe(Condition.selected);
+    ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.selected);
     return (T) this;
   }
 

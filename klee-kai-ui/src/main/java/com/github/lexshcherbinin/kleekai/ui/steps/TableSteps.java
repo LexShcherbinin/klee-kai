@@ -3,6 +3,7 @@ package com.github.lexshcherbinin.kleekai.ui.steps;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.github.lexshcherbinin.kleekai.ui.BaseMethods.getDefaultErrorMessage;
+import static org.testng.Assert.assertTrue;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
@@ -54,6 +55,19 @@ public interface TableSteps<T extends KleeKaiPage<T>> {
   @Step("Проверка, что в колонке '{column}' содержится список значений '{expectedValueList}'")
   default T checkColumnContainsValueList(String column, List<String> expectedValueList) {
     $$x(getColumnXpath(column)).should(CollectionCondition.containExactTextsCaseSensitive(expectedValueList));
+    return (T) this;
+  }
+
+  @Step("Проверка, что ячейка в колонке '{column}' в строке '{row}' содержит значение '{expectedValue}'")
+  default T checkCellContainsValue(String column, int row, String expectedValue) {
+    SelenideElement cell = $x(getCellXpath(column, row));
+    String actualValue = BaseMethods.getAnyElementText(cell);
+
+    Assertions
+        .assertThat(actualValue)
+        .withFailMessage(String.format("Фактическое значение %s не содержит ожидаемое %s", actualValue, expectedValue))
+        .contains(expectedValue);
+
     return (T) this;
   }
 
