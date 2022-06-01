@@ -1,5 +1,6 @@
 package com.github.lexshcherbinin.kleekai.ui.steps;
 
+import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Condition.readonly;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.github.lexshcherbinin.kleekai.ui.BaseMethods.getDefaultErrorMessage;
@@ -12,6 +13,7 @@ import io.qameta.allure.Step;
 import java.util.Map;
 import java.util.Objects;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.Keys;
 
 /**
  * Шаги для взаимодействия с полями страницы.
@@ -51,16 +53,23 @@ public interface FieldSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  //TODO: Разобраться с этим методом
-  @Step("Выполнена очистка поля '{elementName}'")
-  default T cleanField(String elementName) {
+  @Step("Поле '{elementName}' очищено")
+  default T clearField(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).clear();
-//    SelenideElement valueInput = ((KleeKaiPage<?>) this).getElement(elementName);
-//
-//    do {
-//      valueInput.shouldNotBe(readonly, disabled).doubleClick().sendKeys(Keys.DELETE);
-//
-//    } while (valueInput.getValue().length() != 0);
+    return (T) this;
+  }
+
+  @Step("Поле '{elementName}' очищено")
+  default T clearWhileFieldNotEmpty(String elementName) {
+    SelenideElement valueInput = ((KleeKaiPage<?>) this).getElement(elementName);
+
+    do {
+      valueInput
+          .shouldNotBe(readonly, disabled)
+          .doubleClick()
+          .sendKeys(Keys.DELETE);
+
+    } while (valueInput.getValue().length() != 0);
 
     return (T) this;
   }

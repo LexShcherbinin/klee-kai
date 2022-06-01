@@ -4,5 +4,6 @@
 .allure/
 *.iml
 */build/**
+*/klee-kai-ui/**
 # Project exclude paths
 /.gradle/
