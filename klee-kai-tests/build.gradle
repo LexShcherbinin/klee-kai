@@ -33,7 +33,7 @@ dependencies {
     implementation "com.typesafe:config:1.4.2"
 
     //Selenide
-    implementation "com.codeborne:selenide:6.4.0"
+    implementation "com.codeborne:selenide:${selenideVersion}"
 
     //REST Assured
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"

@@ -6,5 +6,9 @@ dependencies {
     implementation "io.qameta.allure:allure-selenide:${allureVersion}"
     implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
 
-    implementation "org.apache.poi:poi-ooxml:5.2.2"
+    //Config
+    implementation "com.typesafe:config:${configVersion}"
+
+    //Selenide
+    implementation "com.codeborne:selenide:${selenideVersion}"
 }

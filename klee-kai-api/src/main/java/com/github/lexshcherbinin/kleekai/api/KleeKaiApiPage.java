@@ -1,6 +1,6 @@
 package com.github.lexshcherbinin.kleekai.api;
 
-import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
+import com.github.lexshcherbinin.kleekai.common.ValueStorage;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import java.time.Duration;
@@ -131,7 +131,7 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
 
   @Step("Сохранить значение из поля {field} с ключём {key}")
   public T saveFieldValue(String field, String key) {
-    ValueKeeper.saveValue(key, response.jsonPath().get(field));
+    ValueStorage.saveValue(key, response.jsonPath().get(field));
     return (T) this;
   }
 

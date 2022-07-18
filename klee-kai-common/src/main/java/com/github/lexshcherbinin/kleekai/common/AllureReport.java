@@ -3,6 +3,8 @@ package com.github.lexshcherbinin.kleekai.common;
 import static io.qameta.allure.util.ResultsUtils.EPIC_LABEL_NAME;
 import static io.qameta.allure.util.ResultsUtils.FEATURE_LABEL_NAME;
 import static io.qameta.allure.util.ResultsUtils.PARENT_SUITE_LABEL_NAME;
+import static io.qameta.allure.util.ResultsUtils.STORY_LABEL_NAME;
+import static io.qameta.allure.util.ResultsUtils.SUB_SUITE_LABEL_NAME;
 import static io.qameta.allure.util.ResultsUtils.SUITE_LABEL_NAME;
 
 import io.qameta.allure.Allure;
@@ -11,7 +13,7 @@ import io.qameta.allure.model.Label;
 /**
  * Класс для редактирования label`ов в allure-отчёте.
  */
-public class AllureReport {
+public final class AllureReport {
 
   private AllureReport() {
 
@@ -64,6 +66,11 @@ public class AllureReport {
     return this;
   }
 
+  public AllureReport setStory(String name) {
+    setLabel(STORY_LABEL_NAME, name);
+    return this;
+  }
+
   public AllureReport setParentSuite(String name) {
     setLabel(PARENT_SUITE_LABEL_NAME, name);
     return this;
@@ -71,6 +78,11 @@ public class AllureReport {
 
   public AllureReport setSuite(String name) {
     setLabel(SUITE_LABEL_NAME, name);
+    return this;
+  }
+
+  public AllureReport setSubSuite(String name) {
+    setLabel(SUB_SUITE_LABEL_NAME, name);
     return this;
   }
 

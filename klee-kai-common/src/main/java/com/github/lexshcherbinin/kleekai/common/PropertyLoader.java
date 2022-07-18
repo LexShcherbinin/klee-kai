@@ -8,7 +8,11 @@ import java.util.Properties;
 /**
  * Класс для работы с properties-файлами.
  */
-public class PropertyLoader {
+public final class PropertyLoader {
+
+  private PropertyLoader() {
+
+  }
 
   /**
    * Читает properties-файл.

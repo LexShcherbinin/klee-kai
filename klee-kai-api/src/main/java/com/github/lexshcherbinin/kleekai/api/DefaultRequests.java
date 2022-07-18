@@ -3,7 +3,7 @@ package com.github.lexshcherbinin.kleekai.api;
 import static io.restassured.RestAssured.given;
 import static java.util.Objects.requireNonNullElse;
 
-import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
+import com.github.lexshcherbinin.kleekai.common.ValueStorage;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class DefaultRequests {
   public static Response defaultPost(Map<String, Object> params, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .post(url);
   }
@@ -44,7 +44,7 @@ public class DefaultRequests {
   public static Response defaultPost(Map<String, Object> params, Object body, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .body(body)
         .post(url);
@@ -61,7 +61,7 @@ public class DefaultRequests {
   public static Response defaultGet(Map<String, Object> params, Object body, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .body(body)
         .get(url);
@@ -77,7 +77,7 @@ public class DefaultRequests {
   public static Response defaultGet(Map<String, Object> params, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .get(url);
   }
@@ -93,7 +93,7 @@ public class DefaultRequests {
   public static Response defaultPut(Map<String, Object> params, Object body, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .body(body)
         .put(url);
@@ -109,7 +109,7 @@ public class DefaultRequests {
   public static Response defaultPut(Map<String, Object> params, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .put(url);
   }
@@ -125,7 +125,7 @@ public class DefaultRequests {
   public static Response defaultDelete(Map<String, Object> params, Object body, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .body(body)
         .delete(url);
@@ -141,7 +141,7 @@ public class DefaultRequests {
   public static Response defaultDelete(Map<String, Object> params, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .delete(url);
   }
@@ -157,7 +157,7 @@ public class DefaultRequests {
   public static Response defaultPatch(Map<String, Object> params, Object body, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .body(body)
         .patch(url);
@@ -173,7 +173,7 @@ public class DefaultRequests {
   public static Response defaultPatch(Map<String, Object> params, String url) {
     return given()
         .headers(DEFAULT_HEADERS)
-        .header("authorization", ValueKeeper.getValue("accessToken"))
+        .header("authorization", ValueStorage.getValue("accessToken"))
         .params(requireNonNullElse(params, Map.of()))
         .patch(url);
   }

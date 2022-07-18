@@ -6,7 +6,7 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.github.lexshcherbinin.kleekai.common.ValueKeeper;
+import com.github.lexshcherbinin.kleekai.common.ValueStorage;
 import com.github.lexshcherbinin.kleekai.ui.BaseMethods;
 import com.github.lexshcherbinin.kleekai.ui.KleeKaiPage;
 import io.qameta.allure.Step;
@@ -144,7 +144,7 @@ public interface ElementSteps<T extends KleeKaiPage<T>> {
   default T saveElementValue(String elementName, String key) {
     SelenideElement element = ((KleeKaiPage<?>) this).getElement(elementName);
     String value = BaseMethods.getAnyElementText(element);
-    ValueKeeper.saveValue(key, value);
+    ValueStorage.saveValue(key, value);
 
     return (T) this;
   }

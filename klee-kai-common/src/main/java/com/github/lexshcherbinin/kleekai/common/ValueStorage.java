@@ -6,18 +6,22 @@ import java.util.Map;
 /**
  * Реализация сохранения значений.
  */
-public class ValueKeeper {
+public final class ValueStorage {
 
-  private static final ThreadLocal<ValueKeeper> varThread = ThreadLocal.withInitial(ValueKeeper::new);
+  private static final ThreadLocal<ValueStorage> varThread = ThreadLocal.withInitial(ValueStorage::new);
 
   private final Map<String, Object> variables = new HashMap<>();
 
-  private static ValueKeeper getInstance() {
+  private ValueStorage() {
+
+  }
+
+  private static ValueStorage getInstance() {
     return varThread.get();
   }
 
-  public static void saveValue(String key, Object value) {
-    getInstance().variables.put(key, value);
+  public static void saveValue(String name, Object value) {
+    getInstance().variables.put(name, value);
   }
 
   public static Object getValue(String name) {

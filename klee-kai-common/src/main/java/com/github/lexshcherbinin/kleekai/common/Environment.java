@@ -1,9 +1,8 @@
-package com.github.lexshcherbinin.kleekai.ui;
+package com.github.lexshcherbinin.kleekai.common;
 
 import static java.util.stream.Collectors.toList;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
-import com.github.lexshcherbinin.kleekai.common.PropertyLoader;
 import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
 import io.qameta.allure.Allure;
@@ -13,12 +12,16 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Класс с методами по настройке окружения
+ * Класс с методами по настройке окружения.
  */
-public class Environment {
+public final class Environment {
+
+  private Environment() {
+
+  }
 
   /**
-   * Задать настройки окружения из файла selenide.properties
+   * Задание настроек окружения из файла selenide.properties.
    */
   public static void setupSelenideEnvironment() {
     String selenidePropertiesPath = "src/main/resources/selenide.properties";
@@ -37,7 +40,7 @@ public class Environment {
   }
 
   /**
-   * Подключить AllureSelenideLogger
+   * Подключение AllureSelenideLogger.
    */
   public static void setupAllureReports() {
     SelenideLogger.addListener(
@@ -47,10 +50,11 @@ public class Environment {
   }
 
   /**
-   * Ищет в application.conf директорию, в которой будут создаваться тестовые файлы
+   * Поиск в application.conf директории, в которой будут создаваться тестовые файлы. Возвращает значение
+   * temp_test_data_path из application.conf. При его отсутствии возвращает значение
+   * target/generated-sources/test-data/.
    *
-   * @return - возвращает значение temp_test_data_path из application.conf. При его отсутствии возвращает значение
-   * target/generated-sources/test-data/
+   * @return - возвращает путь, по которому будут создаваться тестовые файлы
    */
   public static String getTestDataPath() {
     String defaultPath = "target/generated-sources/test-data/";
@@ -71,7 +75,7 @@ public class Environment {
   }
 
   /**
-   * Скрыть параметры в шагах в отчёте
+   * Скрытие параметров в шагах отчёта.
    */
   public static void hideParametersInSteps() {
     Allure.getLifecycle()
@@ -82,6 +86,12 @@ public class Environment {
             });
   }
 
+  /**
+   * Реверсивное скрытие параметров в шагах отчёта в самих шагах.
+   *
+   * @param stepResults - шаги в отчёте.
+   * @return - возвращает "зачищенные" шаги.
+   */
   private static List<StepResult> processStepResult(List<StepResult> stepResults) {
     if (stepResults.size() != 0) {
       return stepResults.stream()
