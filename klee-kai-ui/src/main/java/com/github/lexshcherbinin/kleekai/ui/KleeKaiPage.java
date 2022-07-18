@@ -93,7 +93,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   }
 
   /**
-   * Получение элемента страницы по имени (@Name("Имя элемента"))
+   * Получение элемента страницы по имени
    */
   public SelenideElement getElement(String elementName) {
     SelenideElement element = searchElement(elementName);
@@ -116,14 +116,14 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   }
 
   /**
-   * Поиск элемента страницы по имени (@Name("Имя элемента"))
+   * Поиск элемента страницы по имени
    */
   public SelenideElement searchElement(String elementName) {
     return  (SelenideElement) namedElements.get(elementName);
   }
 
   /**
-   * Поиск элемента в блоках страницы по имени (@Name("Имя элемента"))
+   * Поиск элемента в блоках страницы по имени
    */
   public SelenideElement getElementInBlock(String elementName) {
     for (KleeKaiPage<?> block : blocks) {
@@ -138,7 +138,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   }
 
   /**
-   * Получение списка элементов страницы по имени (@Name("Имя элемента"))
+   * Получение списка элементов страницы по имени
    */
   public ElementsCollection getElementList(String elementName) {
     return (ElementsCollection) namedElements.get(elementName);

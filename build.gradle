@@ -58,7 +58,7 @@ allprojects {
                 pom {
                     name = project.name
                     description = 'Project to ease pain of test automation'
-                    url = 'https://github.com/LexShcherbinin/page-object-api'
+                    url = 'https://github.com/LexShcherbinin/klee-kai'
                     inceptionYear = '2020'
 
                     licenses {
@@ -78,9 +78,9 @@ allprojects {
                     }
 
                     scm {
-                        url = 'https://github.com/LexShcherbinin/page-object-api'
-                        connection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
-                        developerConnection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
+                        url = 'https://github.com/LexShcherbinin/klee-kai'
+                        connection = 'scm:https://github.com/LexShcherbinin/klee-kai.git'
+                        developerConnection = 'scm:https://github.com/LexShcherbinin/klee-kai.git'
                     }
                 }
             }
