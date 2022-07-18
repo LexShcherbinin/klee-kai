@@ -1,9 +1,35 @@
+import java.time.Duration
+
 publishing {
+    jacoco.toolVersion = '0.8.5'
+
+    nexusStaging {
+        numberOfRetries = 500
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    nexusPublishing {
+        Duration duration = Duration.ofMinutes(5)
+        connectTimeout = duration
+        clientTimeout = duration
+
+        repositories {
+            sonatype {
+                username = "${nexusUsername}"
+                password = "${nexusPassword}"
+            }
+        }
+    }
+
     publications {
         mavenJava(MavenPublication) {
             group = project.group
             artifactId = 'klee-kai-common'
-            version = '1.0.1'
+            version = '1.0.2'
 
             from components.java
 
@@ -11,7 +37,7 @@ publishing {
                 name = project.name
                 description = 'Project to ease pain of test automation'
                 url = 'https://github.com/LexShcherbinin/klee-kai'
-                inceptionYear = '2020'
+                inceptionYear = '2022'
 
                 licenses {
                     license {
@@ -40,6 +66,26 @@ publishing {
 
     signing {
         sign publishing.publications.mavenJava
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    counter = 'LINE'
+                    value = 'COVEREDRATIO'
+                    minimum = 1.0
+                }
+            }
+        }
     }
 }
 
