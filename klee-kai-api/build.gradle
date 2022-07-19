@@ -109,11 +109,19 @@ dependencies {
     implementation "io.rest-assured:json-path:${restAssuredVersion}"
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
+    //jackson
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+
+    //Selenium
+    implementation "org.seleniumhq.selenium:selenium-api:${seleniumVersion}"
+
     //AssertJ
     implementation "org.assertj:assertj-core:${assertjVersion}"
 
-    //api
-    implementation "org.awaitility:awaitility:4.2.0"
+    //Awaitility
+    implementation "org.awaitility:awaitility:${awaitilityVersion}"
 
     implementation project(":klee-kai-common")
 
