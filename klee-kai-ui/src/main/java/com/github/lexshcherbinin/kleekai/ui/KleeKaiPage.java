@@ -145,7 +145,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
   }
 
   /**
-   * Инициализация элементов страницы. Проверяет наличие обязательных элементов и отсутствие тех, что быть на странице не должны
+   * инициализация элементов страницы. Проверяет наличие обязательных элементов и отсутствие тех, что быть на странице не должны
    */
   <T extends KleeKaiPage<T>> void initializePageElements(Class<T> page, KleeKaiPage<? extends KleeKaiPage<?>> instance) {
     instance.namedElements = readNamedElements(page);
