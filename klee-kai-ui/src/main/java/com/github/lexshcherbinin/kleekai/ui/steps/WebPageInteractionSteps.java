@@ -17,7 +17,7 @@ import org.openqa.selenium.interactions.Actions;
  */
 public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
 
-  @Step("Выполнен переход по ссылке '{url}'")
+  @Step("Выполнен переход по ссылке \"{url}\"")
   default T goToUrl(String url) {
     Selenide.open(url);
     return (T) this;
@@ -37,26 +37,26 @@ public interface WebPageInteractionSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Страница прокручена до элемента '{elementName}'")
+  @Step("Страница прокручена до элемента \"{elementName}\"")
   default T scrollPageToElement(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).scrollTo();
     return (T) this;
   }
 
-  @Step("Выполнено переключение на вкладку с заголовком '{title}'")
+  @Step("Выполнено переключение на вкладку с заголовком \"{title}\"")
   default T switchToTheTabWithTitle(String title) {
     Selenide.switchTo().window(title);
     return (T) this;
   }
 
-  @Step("Выполнена загрузка файла '{fileName}'")
+  @Step("Выполнена загрузка файла \"{fileName}\"")
   default T clickUploadFile(String buttonName, String fileName) {
     BaseMethods.attachExelFile(fileName, fileName);
     ((KleeKaiPage<?>) this).getElement(buttonName).uploadFile(new File(fileName));
     return (T) this;
   }
 
-  @Step("Выполнена загрузка файлов '{fileNameList}'")
+  @Step("Выполнена загрузка файлов \"{fileNameList}\"")
   default T clickUploadFileList(String buttonName, List<String> fileNameList) {
     for (String fileName : fileNameList) {
       clickUploadFile(buttonName, fileName);

@@ -9,43 +9,43 @@ import io.qameta.allure.Step;
  */
 public interface CheckboxSteps<T extends KleeKaiPage<T>> {
 
-  @Step("Выполнен клик по чекбоксу '{elementName}'")
+  @Step("Выполнен клик по чекбоксу \"{elementName}\"")
   default T clickCheckbox(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).click();
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' отображается на странице")
+  @Step("Проверка, что чекбокс \"{elementName}\" отображается на странице")
   default T checkCheckboxIsDisplayed(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.visible);
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' не отображается на странице")
+  @Step("Проверка, что чекбокс \"{elementName}\" не отображается на странице")
   default T checkCheckboxIsNotDisplayed(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.visible);
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' кликабелен")
+  @Step("Проверка, что чекбокс \"{elementName}\" кликабелен")
   default T checkCheckboxIsClickable(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.enabled);
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' не кликабелен")
+  @Step("Проверка, что чекбокс \"{elementName}\" не кликабелен")
   default T checkCheckboxIsNotClickable(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.enabled);
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' выбран")
+  @Step("Проверка, что чекбокс \"{elementName}\" выбран")
   default T checkCheckboxIsSelected(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).should(Condition.enabled);
     return (T) this;
   }
 
-  @Step("Проверка, что чекбокс '{elementName}' не выбран")
+  @Step("Проверка, что чекбокс \"{elementName}\" не выбран")
   default T checkCheckboxIsNotSelected(String elementName) {
     ((KleeKaiPage<?>) this).getElement(elementName).shouldNot(Condition.enabled);
     return (T) this;

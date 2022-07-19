@@ -10,14 +10,14 @@ import io.qameta.allure.Step;
  */
 public interface FrameSteps<T extends KleeKaiPage<T>> {
 
-  @Step("Выполнен переход на фрейм '{elementName}'")
+  @Step("Выполнен переход на фрейм \"{elementName}\"")
   default T switchToFrame(String elementName) {
     SelenideElement frame = ((KleeKaiPage<?>) this).getElement(elementName);
     Selenide.switchTo().frame(frame);
     return (T) this;
   }
 
-  @Step("Выполнен переход на фрейм номер '{frameNumber}'")
+  @Step("Выполнен переход на фрейм номер \"{frameNumber}\"")
   default T switchToFrame(int frameNumber) {
     Selenide.switchTo().frame(frameNumber);
     return (T) this;

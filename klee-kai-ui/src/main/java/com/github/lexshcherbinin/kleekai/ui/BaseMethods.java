@@ -36,7 +36,7 @@ public class BaseMethods {
    * Получение дефолтного сообщения об ошибке при сравнении двух объектов
    */
   public static String getDefaultErrorMessage(Object expectedValue, Object actualValue) {
-    return String.format("Ожидаемое значение - '%s', фактическое - '%s'", expectedValue, actualValue);
+    return String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", expectedValue, actualValue);
   }
 
   /**

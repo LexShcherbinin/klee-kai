@@ -22,43 +22,43 @@ public interface TableSteps<T extends KleeKaiPage<T>> {
 
   String getColumnXpath(String column);
 
-  @Step("Выполнен клик по ячейке в колонке '{column}' в строке '{row}'")
+  @Step("Выполнен клик по ячейке в колонке \"{column}\" в строке \"{row}\"")
   default T clickCell(String column, int row) {
     $x(getCellXpath(column, row)).click();
     return (T) this;
   }
 
-  @Step("В ячейку в колонке '{column}' в строке '{row}' введено значение '{value}'")
+  @Step("В ячейку в колонке \"{column}\" в строке \"{row}\" введено значение \"{value}\"")
   default T fillCell(String column, int row, String value) {
     $x(getCellXpath(column, row) + "//input").sendKeys(value);
     return (T) this;
   }
 
-  @Step("Выполнено наведение на ячейку в колонке '{column}' в строке '{row}'")
+  @Step("Выполнено наведение на ячейку в колонке \"{column}\" в строке \"{row}\"")
   default T hoverCell(String column, int row) {
     $x(getCellXpath(column, row)).hover();
     return (T) this;
   }
 
-  @Step("Выполнена очистка ячейки в колонке '{column}' в строке '{row}'")
+  @Step("Выполнена очистка ячейки в колонке \"{column}\" в строке \"{row}\"")
   default T clearCell(String column, int row) {
     $x(getCellXpath(column, row) + "//input").clear();
     return (T) this;
   }
 
-  @Step("Выполнен клик по кнопке '{name}'")
+  @Step("Выполнен клик по кнопке \"{name}\"")
   default T clickButton(String name) {
     ((KleeKaiPage<?>) this).getElement(name).click();
     return (T) this;
   }
 
-  @Step("Проверка, что в колонке '{column}' содержится список значений '{expectedValueList}'")
+  @Step("Проверка, что в колонке \"{column}\" содержится список значений \"{expectedValueList}\"")
   default T checkColumnContainsValueList(String column, List<String> expectedValueList) {
     $$x(getColumnXpath(column)).should(CollectionCondition.containExactTextsCaseSensitive(expectedValueList));
     return (T) this;
   }
 
-  @Step("Проверка, что ячейка в колонке '{column}' в строке '{row}' содержит значение '{expectedValue}'")
+  @Step("Проверка, что ячейка в колонке \"{column}\" в строке \"{row}\" содержит значение \"{expectedValue}\"")
   default T checkCellContainsValue(String column, int row, String expectedValue) {
     SelenideElement cell = $x(getCellXpath(column, row));
     String actualValue = BaseMethods.getAnyElementText(cell);
@@ -71,7 +71,7 @@ public interface TableSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Проверка, что значение ячейки в колонке '{column}' в строке '{row}' равно '{expectedValue}'")
+  @Step("Проверка, что значение ячейки в колонке \"{column}\" в строке \"{row}\" равно \"{expectedValue}\"")
   default T checkCellEqualsValue(String column, int row, String expectedValue) {
     SelenideElement cell = $x(getCellXpath(column, row));
     String actualValue = BaseMethods.getAnyElementText(cell);
@@ -84,7 +84,7 @@ public interface TableSteps<T extends KleeKaiPage<T>> {
     return (T) this;
   }
 
-  @Step("Проверка, что ячейка в колонке '{column}' в строке '{row}' пустая")
+  @Step("Проверка, что ячейка в колонке \"{column}\" в строке \"{row}\" пустая")
   default T checkCellIsEmpty(String column, int row) {
     checkCellEqualsValue(column, row, "");
     return (T) this;

@@ -73,13 +73,13 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
    * @param statusCode - ожидаемое значение
    * @return - возвращает экземпляр текущего api-пейджа
    */
-  @Step("Проверка, что в ответ пришёл код '{statusCode}'")
+  @Step("Проверка, что в ответ пришёл код \"{statusCode}\"")
   public T checkStatusCode(int statusCode) {
     int actualValue = getStatusCode();
 
     Assertions
         .assertThat(actualValue)
-        .withFailMessage(String.format("Ожидаемое значение - '%s', фактическое - '%s'", statusCode, actualValue))
+        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", statusCode, actualValue))
         .isEqualTo(statusCode);
 
     return (T) this;
@@ -92,13 +92,13 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
    * @param value - ожидаемое значение
    * @return - возвращает экземпляр текущего api-пейджа
    */
-  @Step("Проверка, что поле '{field}' содержит значение '{value}'")
+  @Step("Проверка, что поле \"{field}\" содержит значение \"{value}\"")
   public T checkFieldValue(String field, Object value) {
     Object actualValue = response.jsonPath().get(field);
 
     Assertions
         .assertThat(actualValue)
-        .withFailMessage(String.format("Ожидаемое значение - '%s', фактическое - '%s'", value, actualValue))
+        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", value, actualValue))
         .isEqualTo(value);
 
     return (T) this;
@@ -111,7 +111,7 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
    * @param matcher - матчер
    * @return - возвращает экземпляр текущего api-пейджа
    */
-  @Step("Проверка, что поле '{field}' совпадает с матчером '{matcher}'")
+  @Step("Проверка, что поле \"{field}\" совпадает с матчером \"{matcher}\"")
   public T checkMatcher(String field, Matcher<?> matcher) {
     response.then().body(field, matcher);
     return (T) this;
@@ -123,13 +123,13 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
    * @param matcher - матчер
    * @return - возвращает экземпляр текущего api-пейджа
    */
-  @Step("Проверка, что тело ответа совпадает с матчером '{matcher}'")
+  @Step("Проверка, что тело ответа совпадает с матчером \"{matcher}\"")
   public T checkMatcher(Matcher<?> matcher) {
     response.then().body(matcher);
     return (T) this;
   }
 
-  @Step("Сохранить значение из поля {field} с ключём {key}")
+  @Step("Сохранить значение из поля \"{field}\" с ключом \"{key}\"")
   public T saveFieldValue(String field, String key) {
     ValueStorage.saveValue(key, response.jsonPath().get(field));
     return (T) this;

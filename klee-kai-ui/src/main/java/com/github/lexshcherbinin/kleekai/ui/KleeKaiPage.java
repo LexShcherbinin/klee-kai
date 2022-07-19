@@ -65,7 +65,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
    * Получение экземпляра страницы
    */
   public final <T extends KleeKaiPage<T>> T getPage(Class<T> page) {
-    Allure.step(String.format("Выполнена загрузка страницы '%s'", getPageName(page)));
+    Allure.step(String.format("Выполнена загрузка страницы \"%s\"", getPageName(page)));
     T instance = Selenide.page(page);
     instance.initializePageElements(page, instance);
     return instance;
@@ -111,7 +111,7 @@ public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteraction
 
     } else {
       throw new IllegalArgumentException(
-          String.format("Элемент '%s' не описан на странице '%s'", elementName, this.getClass().getName()));
+          String.format("Элемент \"%s\" не описан на странице \"%s\"", elementName, this.getClass().getName()));
     }
   }
 
