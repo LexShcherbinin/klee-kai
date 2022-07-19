@@ -1,3 +1,44 @@
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            group = project.group
+            artifactId = 'klee-kai-ui'
+            version = '0.0.1'
+
+            from components.java
+
+            pom {
+                name = project.name
+                description = 'Project to ease pain of test automation'
+                url = 'https://github.com/LexShcherbinin/klee-kai'
+                inceptionYear = '2022'
+
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'LexShcherbinin'
+                        name = 'Alexandr Shcherbinin'
+                        email = 'lexshcherbinin@gmail.com'
+                    }
+                }
+
+                scm {
+                    url = 'https://github.com/LexShcherbinin/klee-kai'
+                    connection = 'scm:https://github.com/LexShcherbinin/klee-kai.git'
+                    developerConnection = 'scm:https://github.com/LexShcherbinin/klee-kai.git'
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     //Allure
     implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
