@@ -102,7 +102,7 @@ dependencies {
     implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
 
     //Config
-    implementation "com.typesafe:config:1.4.2"
+    implementation "com.typesafe:config:${configVersion}"
 
     //REST Assured
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
@@ -116,6 +116,5 @@ dependencies {
     implementation "org.awaitility:awaitility:4.2.0"
 
     implementation project(":klee-kai-common")
-//    implementation "com.github.lexshcherbinin:klee-kai-common:${project.version}"
 
 }
