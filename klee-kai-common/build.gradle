@@ -41,6 +41,11 @@ publishing {
 
 dependencies {
 
+    //REST Assured
+    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    implementation "io.rest-assured:json-path:${restAssuredVersion}"
+    implementation "io.rest-assured:xml-path:${restAssuredVersion}"
+
     //Allure
     implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
     implementation "io.qameta.allure:allure-junit5:${allureVersion}"
