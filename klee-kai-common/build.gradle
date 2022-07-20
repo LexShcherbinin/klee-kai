@@ -29,7 +29,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = project.group
             artifactId = 'klee-kai-common'
-            version = project.version
+            version = '0.0.3'
 
             from components.java
 
@@ -94,17 +94,16 @@ jacocoTestCoverageVerification {
 }
 
 dependencies {
-
-    //REST Assured
-    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
-    implementation "io.rest-assured:json-path:${restAssuredVersion}"
-    implementation "io.rest-assured:xml-path:${restAssuredVersion}"
-
     //Allure
     implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
     implementation "io.qameta.allure:allure-junit5:${allureVersion}"
     implementation "io.qameta.allure:allure-selenide:${allureVersion}"
     implementation "io.qameta.allure:allure-java-commons:${allureVersion}"
+
+    //REST Assured
+    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    implementation "io.rest-assured:json-path:${restAssuredVersion}"
+    implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
     //Config
     implementation "com.typesafe:config:${configVersion}"

@@ -29,7 +29,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = project.group
             artifactId = 'klee-kai-api'
-            version = project.version
+            version = '0.0.5'
 
             from components.java
 
@@ -94,7 +94,6 @@ jacocoTestCoverageVerification {
 }
 
 dependencies {
-
     //Allure
     implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
     implementation "io.qameta.allure:allure-junit5:${allureVersion}"
@@ -124,5 +123,4 @@ dependencies {
     implementation "org.awaitility:awaitility:${awaitilityVersion}"
 
     implementation project(":klee-kai-common")
-
 }

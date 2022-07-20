@@ -29,7 +29,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = project.group
             artifactId = 'klee-kai-ui'
-            version = project.version
+            version = '0.0.5'
 
             from components.java
 
@@ -123,10 +123,10 @@ dependencies {
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
     //Cucumber
-    implementation "io.cucumber:cucumber-java:${cucumberVersion}"
-    implementation "io.cucumber:cucumber-core:${cucumberVersion}"
-    implementation "io.cucumber:cucumber-junit:${cucumberVersion}"
-    implementation "io.cucumber:cucumber-testng:${cucumberVersion}"
+//    implementation "io.cucumber:cucumber-java:${cucumberVersion}"
+//    implementation "io.cucumber:cucumber-core:${cucumberVersion}"
+//    implementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+//    implementation "io.cucumber:cucumber-testng:${cucumberVersion}"
 
     implementation project(":klee-kai-common")
 }
