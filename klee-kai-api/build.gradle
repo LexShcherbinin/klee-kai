@@ -29,7 +29,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = project.group
             artifactId = 'klee-kai-api'
-            version = '0.0.5'
+            version = project.version
 
             from components.java
 
@@ -122,5 +122,6 @@ dependencies {
     //Awaitility
     implementation "org.awaitility:awaitility:${awaitilityVersion}"
 
+    //KleeKai
     implementation project(":klee-kai-common")
 }
