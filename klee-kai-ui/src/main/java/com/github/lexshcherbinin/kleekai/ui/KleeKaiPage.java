@@ -13,6 +13,7 @@ import com.github.lexshcherbinin.kleekai.ui.annotations.Hidden;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Name;
 import com.github.lexshcherbinin.kleekai.ui.annotations.Required;
 import com.github.lexshcherbinin.kleekai.ui.steps.ManageBrowserSteps;
+import com.github.lexshcherbinin.kleekai.ui.steps.RequestCatcherSteps;
 import com.github.lexshcherbinin.kleekai.ui.steps.RoundUpSteps;
 import com.github.lexshcherbinin.kleekai.ui.steps.WebPageInteractionSteps;
 import io.qameta.allure.Allure;
@@ -28,7 +29,8 @@ import java.util.Map;
 /**
  * Главный пейдж-класс, от которого наследуются все остальные пейджи
  */
-public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteractionSteps<D>, ManageBrowserSteps<D>, RoundUpSteps<D> {
+public class KleeKaiPage<D extends KleeKaiPage<D>> implements WebPageInteractionSteps<D>, ManageBrowserSteps<D>, RoundUpSteps<D>,
+    RequestCatcherSteps<D> {
 
   public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds((long) getConfigValueOrDefault("default_timeout", 30L));
 
