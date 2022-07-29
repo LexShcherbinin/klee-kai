@@ -31,4 +31,30 @@ public final class EanGenerator {
     return random + checkDigit;
   }
 
+  /**
+   * Генерация UPC-A (двенадцатизначный) штрих кода.
+   *
+   * @return - возвращает рандомно сгенерированный UPC-A (двенадцатизначный) штрих код.
+   */
+  public static String getUpcA() {
+    String random = RandomStringUtils.randomNumeric(11);
+
+    int evenSum = 0;
+    int oddSum = 0;
+
+    for (int i = 1; i <= random.length(); i++) {
+      int number = Character.getNumericValue(random.charAt(i - 1));
+
+      if (i % 2 == 0) {
+        evenSum += number;
+
+      } else {
+        oddSum += number;
+      }
+    }
+
+    int resultNumber = (10 - ((oddSum * 3 + evenSum) % 10)) % 10;
+    return random + resultNumber;
+  }
+
 }
