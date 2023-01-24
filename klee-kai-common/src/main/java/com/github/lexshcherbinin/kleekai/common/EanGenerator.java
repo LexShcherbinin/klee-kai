@@ -17,18 +17,28 @@ public final class EanGenerator {
    */
   public static String getEan13() {
     String random = RandomStringUtils.randomNumeric(12);
-    List<Integer> randomList = random.chars()
+    return getEan13(random);
+  }
+
+  /**
+   * Генерация EAN13-код.
+   *
+   * @param value - 12-значное значение, к которому нужно добавить 13-й знак.
+   * @return - возвращает рандомно сгенерированный EAN13-код.
+   */
+  public static String getEan13(String value) {
+    List<Integer> randomList = value.chars()
         .mapToObj(e -> (char) e)
         .map(Character::getNumericValue)
         .collect(Collectors.toList());
 
     int sum = 0;
-    for (int i = 0; i < random.length(); i++) {
+    for (int i = 0; i < value.length(); i++) {
       sum = sum + ((randomList.get(i)) * (i % 2 == 0 ? 1 : 3));
     }
 
     int checkDigit = sum % 10 == 0 ? 0 : (10 - (sum % 10));
-    return random + checkDigit;
+    return value + checkDigit;
   }
 
   /**
@@ -38,12 +48,23 @@ public final class EanGenerator {
    */
   public static String getUpcA() {
     String random = RandomStringUtils.randomNumeric(11);
+    return getUpcA(random);
+  }
+
+  /**
+   * Генерация UPC-A (двенадцатизначный) штрих кода.
+   *
+   * @param value - 11-значное значение, к которому нужно добавить 12-й знак.
+   * @return - возвращает рандомно сгенерированный UPC-A (двенадцатизначный) штрих код.
+   */
+  public static String getUpcA(String value) {
+    assert value.toCharArray().length == 11;
 
     int evenSum = 0;
     int oddSum = 0;
 
-    for (int i = 1; i <= random.length(); i++) {
-      int number = Character.getNumericValue(random.charAt(i - 1));
+    for (int i = 1; i <= value.length(); i++) {
+      int number = Character.getNumericValue(value.charAt(i - 1));
 
       if (i % 2 == 0) {
         evenSum += number;
@@ -54,7 +75,7 @@ public final class EanGenerator {
     }
 
     int resultNumber = (10 - ((oddSum * 3 + evenSum) % 10)) % 10;
-    return random + resultNumber;
+    return value + resultNumber;
   }
 
 }

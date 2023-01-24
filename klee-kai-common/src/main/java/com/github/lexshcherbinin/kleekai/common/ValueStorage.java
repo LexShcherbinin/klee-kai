@@ -20,6 +20,14 @@ public final class ValueStorage {
     return varThread.get();
   }
 
+  public static void clear() {
+    getInstance().variables.clear();
+  }
+
+  public static Object remove(String key) {
+    return getInstance().variables.remove(key);
+  }
+
   public static void saveValue(String name, Object value) {
     getInstance().variables.put(name, value);
   }
@@ -35,7 +43,14 @@ public final class ValueStorage {
    * @return - возвращает сохранённое значение типа String
    */
   public static String getString(String name) {
-    return getInstance().variables.get(name).toString();
+    Object value = getValue(name);
+
+    if (value != null) {
+      return value.toString();
+
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -45,13 +60,19 @@ public final class ValueStorage {
    * @return - возвращает сохранённое значение типа Integer
    */
   public static Integer getInteger(String name) {
-    Object value = getInstance().variables.get(name);
+    Object value = getValue(name);
 
-    if (value instanceof String) {
-      return Integer.parseInt(value.toString());
+    if (value != null) {
+      if (value instanceof String) {
+        return Integer.parseInt(value.toString());
+
+      } else {
+        return (Integer) value;
+      }
+
+    } else {
+      return null;
     }
-
-    return (Integer) getInstance().variables.get(name);
   }
 
   /**
@@ -61,21 +82,19 @@ public final class ValueStorage {
    * @return - возвращает сохранённое значение типа Double
    */
   public static Double getDouble(String name) {
-    Object value = getInstance().variables.get(name);
+    Object value = getValue(name);
 
-    if (value instanceof String) {
-      return Double.parseDouble(value.toString());
+    if (value != null) {
+      if (value instanceof String) {
+        return Double.parseDouble(value.toString());
+
+      } else {
+        return (Double) value;
+      }
+
+    } else {
+      return null;
     }
-
-    return (Double) getInstance().variables.get(name);
-  }
-
-  public static void clear() {
-    getInstance().variables.clear();
-  }
-
-  public static Object remove(String key) {
-    return getInstance().variables.remove(key);
   }
 
 }
