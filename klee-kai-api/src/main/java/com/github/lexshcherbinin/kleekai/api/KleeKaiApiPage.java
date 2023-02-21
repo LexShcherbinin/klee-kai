@@ -1,8 +1,12 @@
 package com.github.lexshcherbinin.kleekai.api;
 
 import com.github.lexshcherbinin.kleekai.common.ValueStorage;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;
@@ -14,7 +18,7 @@ import org.hamcrest.Matcher;
  *
  * @param <T> - тип страницы
  */
-public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
+public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> implements ResponseBodySteps<T> {
 
   protected Response response;
 
@@ -65,6 +69,21 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
    */
   protected <K> K extractAs(Class<K> apiPage) {
     return response.then().extract().as(apiPage);
+  }
+
+  /**
+   * Прикрепление excel-файла к отчёту.
+   *
+   * @param name - имя файла.
+   * @param path - путь до файла.
+   */
+  protected void attachExelFile(String name, String path) {
+    try {
+      Allure.getLifecycle().addAttachment(name, "", "xlsx", Files.readAllBytes(Paths.get(path)));
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -132,6 +151,17 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> {
   @Step("Сохранить значение из поля \"{field}\" с ключом \"{key}\"")
   public T saveFieldValue(String field, String key) {
     ValueStorage.saveValue(key, response.jsonPath().get(field));
+    return (T) this;
+  }
+
+  @Step("Выполнено ожидание в течение \"{seconds}\" секунд")
+  public T waitForSeconds(long seconds) {
+    try {
+      Thread.sleep(seconds * 1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
     return (T) this;
   }
 

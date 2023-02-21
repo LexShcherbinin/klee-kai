@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Запросы по умолчанию.
  */
+@Deprecated
 public class DefaultRequests {
 
   public static final Map<String, Object> DEFAULT_HEADERS = Map.of(
