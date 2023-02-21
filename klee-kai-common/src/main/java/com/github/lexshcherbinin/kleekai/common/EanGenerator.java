@@ -11,7 +11,7 @@ public final class EanGenerator {
   }
 
   /**
-   * Генерация EAN13-код.
+   * Генерация EAN13-кода.
    *
    * @return - возвращает рандомно сгенерированный EAN13-код.
    */
@@ -21,12 +21,16 @@ public final class EanGenerator {
   }
 
   /**
-   * Генерация EAN13-код.
+   * Генерация EAN13-кода.
    *
-   * @param value - 12-значное значение, к которому нужно добавить 13-й знак.
-   * @return - возвращает рандомно сгенерированный EAN13-код.
+   * @param value - 12-значное число, к которому нужно добавить 13-й знак.
+   * @return - возвращает EAN13-код.
    */
   public static String getEan13(String value) {
+    if (value.toCharArray().length != 12) {
+      throw new IllegalArgumentException(String.format("Неверное значение аргумента: \"%s\"", value));
+    }
+
     List<Integer> randomList = value.chars()
         .mapToObj(e -> (char) e)
         .map(Character::getNumericValue)
@@ -42,7 +46,7 @@ public final class EanGenerator {
   }
 
   /**
-   * Генерация UPC-A (двенадцатизначный) штрих кода.
+   * Генерация UPC-A (двенадцатизначного) штрих кода.
    *
    * @return - возвращает рандомно сгенерированный UPC-A (двенадцатизначный) штрих код.
    */
@@ -52,13 +56,15 @@ public final class EanGenerator {
   }
 
   /**
-   * Генерация UPC-A (двенадцатизначный) штрих кода.
+   * Генерация UPC-A (двенадцатизначного) штрих кода.
    *
-   * @param value - 11-значное значение, к которому нужно добавить 12-й знак.
-   * @return - возвращает рандомно сгенерированный UPC-A (двенадцатизначный) штрих код.
+   * @param value - 11-значное число, к которому нужно добавить 12-й знак.
+   * @return - возвращает UPC-A (двенадцатизначный) штрих код.
    */
   public static String getUpcA(String value) {
-    assert value.toCharArray().length == 11;
+    if (value.toCharArray().length != 12) {
+      throw new IllegalArgumentException(String.format("Неверное значение аргумента: \"%s\"", value));
+    }
 
     int evenSum = 0;
     int oddSum = 0;

@@ -8,7 +8,6 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.testng.IClassListener;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestContext;
@@ -17,7 +16,7 @@ import org.testng.ITestResult;
 /**
  * Синхронизация вкладок Suites и Behaviors в отчёте.
  */
-public final class AllureReportListener implements IClassListener, IInvokedMethodListener {
+public final class AllureReportListener implements IInvokedMethodListener {
 
   @Override
   public void afterInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
