@@ -1,5 +1,6 @@
 package com.github.lexshcherbinin.kleekai.api;
 
+import com.github.lexshcherbinin.kleekai.common.ValueStorage;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import java.io.File;
@@ -9,20 +10,69 @@ import java.util.List;
 import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
+import org.hamcrest.Matcher;
 
 public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
 
-  @Step("Сохранение скачанного файла как \"{fileName}\"")
-  default T saveResponseAsFile(String fileName) {
-    Response response = ((KleeKaiApiPage<?>) this).getResponse();
+  /**
+   * Шаг для проверки статус-кода, пришедшего на последний запрос.
+   *
+   * @param statusCode - ожидаемое значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что в ответ пришёл код \"{statusCode}\"")
+  default T checkStatusCode(int statusCode) {
+    int actualValue = ((KleeKaiApiPage<?>) this).getStatusCode();
 
-    try {
-      FileUtils.writeByteArrayToFile(new File(fileName), response.then().extract().asByteArray());
+    Assertions
+        .assertThat(actualValue)
+        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", statusCode, actualValue))
+        .isEqualTo(statusCode);
 
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    return (T) this;
+  }
 
+  /**
+   * Шаг для проверки совпадения значения в body по указанному пути.
+   *
+   * @param field - путь\поле.
+   * @param value - ожидаемое значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что поле \"{field}\" содержит значение \"{value}\"")
+  default T checkFieldValue(String field, Object value) {
+    Object actualValue = ((KleeKaiApiPage<?>) this).getResponse().jsonPath().get(field);
+
+    Assertions
+        .assertThat(actualValue)
+        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", value, actualValue))
+        .isEqualTo(value);
+
+    return (T) this;
+  }
+
+  /**
+   * Шаг для проверки совпадения значения в body с матчером по указанному пути.
+   *
+   * @param field   - путь\поле.
+   * @param matcher - матчер.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что поле \"{field}\" совпадает с матчером \"{matcher}\"")
+  default T checkMatcher(String field, Matcher<?> matcher) {
+    ((KleeKaiApiPage<?>) this).getResponse().then().body(field, matcher);
+    return (T) this;
+  }
+
+  /**
+   * Шаг для проверки совпадения значения в body с матчером.
+   *
+   * @param matcher - матчер.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что тело ответа совпадает с матчером \"{matcher}\"")
+  default T checkMatcher(Matcher<?> matcher) {
+    ((KleeKaiApiPage<?>) this).getResponse().then().body(matcher);
     return (T) this;
   }
 
@@ -47,6 +97,38 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
         .assertThat(actualValueList.contains(value))
         .withFailMessage(String.format("В response body в полях \"%s\" присутствует значение \"%s\"", field, value))
         .isTrue();
+
+    return (T) this;
+  }
+
+  @Step("Сохранить значение из поля \"{field}\" с ключом \"{key}\"")
+  default T saveFieldValue(String field, String key) {
+    ValueStorage.saveValue(key, ((KleeKaiApiPage<?>) this).getResponse().jsonPath().get(field));
+    return (T) this;
+  }
+
+  @Step("Выполнено ожидание в течение \"{seconds}\" секунд")
+  default T waitForSeconds(long seconds) {
+    try {
+      Thread.sleep(seconds * 1000);
+
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    return (T) this;
+  }
+
+  @Step("Сохранение скачанного файла как \"{fileName}\"")
+  default T saveResponseAsFile(String fileName) {
+    Response response = ((KleeKaiApiPage<?>) this).getResponse();
+
+    try {
+      FileUtils.writeByteArrayToFile(new File(fileName), response.then().extract().asByteArray());
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     return (T) this;
   }

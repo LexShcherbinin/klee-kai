@@ -1,17 +1,13 @@
 package com.github.lexshcherbinin.kleekai.api;
 
-import com.github.lexshcherbinin.kleekai.common.ValueStorage;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
-import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ThrowingRunnable;
-import org.hamcrest.Matcher;
 
 /**
  * Основной класс для взаимодействия со страницами.
@@ -45,7 +41,7 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> implements ResponseBody
   /**
    * Метод для получения статус-кода ответа.
    *
-   * @return - возвращает statusCode пришедший последний запрос
+   * @return - возвращает statusCode пришедший последний запрос.
    */
   protected int getStatusCode() {
     return response.then().extract().statusCode();
@@ -54,7 +50,7 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> implements ResponseBody
   /**
    * Метод для получения респонса.
    *
-   * @return - возвращает response пришедший на последний запрос
+   * @return - возвращает response пришедший на последний запрос.
    */
   protected Response getResponse() {
     return response;
@@ -63,9 +59,9 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> implements ResponseBody
   /**
    * Метод для приведения тела последнего response к типу apiPage.
    *
-   * @param apiPage - класс объектной модели
-   * @param <K>     - тип приведения
-   * @return - возвращает инстанс объектной модели
+   * @param apiPage - класс объектной модели.
+   * @param <K>     - тип приведения.
+   * @return - возвращает инстанс объектной модели.
    */
   protected <K> K extractAs(Class<K> apiPage) {
     return response.then().extract().as(apiPage);
@@ -84,85 +80,6 @@ public class KleeKaiApiPage<T extends KleeKaiApiPage<T>> implements ResponseBody
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  /**
-   * Шаг для проверки статус-кода, пришедшего на последний запрос.
-   *
-   * @param statusCode - ожидаемое значение
-   * @return - возвращает экземпляр текущего api-пейджа
-   */
-  @Step("Проверка, что в ответ пришёл код \"{statusCode}\"")
-  public T checkStatusCode(int statusCode) {
-    int actualValue = getStatusCode();
-
-    Assertions
-        .assertThat(actualValue)
-        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", statusCode, actualValue))
-        .isEqualTo(statusCode);
-
-    return (T) this;
-  }
-
-  /**
-   * Шаг для проверки совпадения значения в body по указанному пути.
-   *
-   * @param field - путь\поле
-   * @param value - ожидаемое значение
-   * @return - возвращает экземпляр текущего api-пейджа
-   */
-  @Step("Проверка, что поле \"{field}\" содержит значение \"{value}\"")
-  public T checkFieldValue(String field, Object value) {
-    Object actualValue = response.jsonPath().get(field);
-
-    Assertions
-        .assertThat(actualValue)
-        .withFailMessage(String.format("Ожидаемое значение - \"%s\", фактическое - \"%s\"", value, actualValue))
-        .isEqualTo(value);
-
-    return (T) this;
-  }
-
-  /**
-   * Шаг для проверки совпадения значения в body с матчером по указанному пути.
-   *
-   * @param field   - путь\поле
-   * @param matcher - матчер
-   * @return - возвращает экземпляр текущего api-пейджа
-   */
-  @Step("Проверка, что поле \"{field}\" совпадает с матчером \"{matcher}\"")
-  public T checkMatcher(String field, Matcher<?> matcher) {
-    response.then().body(field, matcher);
-    return (T) this;
-  }
-
-  /**
-   * Шаг для проверки совпадения значения в body с матчером.
-   *
-   * @param matcher - матчер
-   * @return - возвращает экземпляр текущего api-пейджа
-   */
-  @Step("Проверка, что тело ответа совпадает с матчером \"{matcher}\"")
-  public T checkMatcher(Matcher<?> matcher) {
-    response.then().body(matcher);
-    return (T) this;
-  }
-
-  @Step("Сохранить значение из поля \"{field}\" с ключом \"{key}\"")
-  public T saveFieldValue(String field, String key) {
-    ValueStorage.saveValue(key, response.jsonPath().get(field));
-    return (T) this;
-  }
-
-  @Step("Выполнено ожидание в течение \"{seconds}\" секунд")
-  public T waitForSeconds(long seconds) {
-    try {
-      Thread.sleep(seconds * 1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    return (T) this;
   }
 
 }
