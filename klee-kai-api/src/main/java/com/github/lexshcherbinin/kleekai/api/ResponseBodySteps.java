@@ -33,7 +33,7 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
   }
 
   /**
-   * Шаг для проверки совпадения значения в body по указанному пути.
+   * Шаг для проверки совпадения значения в response body по указанному пути.
    *
    * @param field - путь\поле.
    * @param value - ожидаемое значение.
@@ -52,7 +52,7 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
   }
 
   /**
-   * Шаг для проверки совпадения значения в body с матчером по указанному пути.
+   * Шаг для проверки совпадения значения в response body с матчером по указанному пути.
    *
    * @param field   - путь\поле.
    * @param matcher - матчер.
@@ -65,7 +65,7 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
   }
 
   /**
-   * Шаг для проверки совпадения значения в body с матчером.
+   * Шаг для проверки совпадения значения в response body с матчером.
    *
    * @param matcher - матчер.
    * @return - возвращает экземпляр текущего api-пейджа.
@@ -76,6 +76,13 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
     return (T) this;
   }
 
+  /**
+   * Шаг для проверки, что в response body все поля field имеют значение value.
+   *
+   * @param field - путь\поле.
+   * @param value - значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
   @Step("Проверка, что в response body все поля \"{field}\" имеют значение \"{value}\"")
   default T checkAllFieldsEqualsValue(String field, Object value) {
     List<Object> actualValueList = ((KleeKaiApiPage<?>) this).getResponse().jsonPath().getList(field);
@@ -89,6 +96,13 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
     return (T) this;
   }
 
+  /**
+   * Шаг для проверки, что в response body во всех полях field отсутствует значение value.
+   *
+   * @param field - путь\поле.
+   * @param value - значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
   @Step("Проверка, что в response body во всех полях \"{field}\" отсутствует значение \"{value}\"")
   default T checkAllFieldsNotEqualsValue(String field, Object value) {
     List<Object> actualValueList = ((KleeKaiApiPage<?>) this).getResponse().jsonPath().getList(field);
@@ -101,24 +115,25 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
     return (T) this;
   }
 
+  /**
+   * Шаг для сохранения значения из response body.
+   *
+   * @param field - путь\поле.
+   * @param key   - ключ, скоторым значение сохраняется.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
   @Step("Сохранить значение из поля \"{field}\" с ключом \"{key}\"")
   default T saveFieldValue(String field, String key) {
     ValueStorage.saveValue(key, ((KleeKaiApiPage<?>) this).getResponse().jsonPath().get(field));
     return (T) this;
   }
 
-  @Step("Выполнено ожидание в течение \"{seconds}\" секунд")
-  default T waitForSeconds(long seconds) {
-    try {
-      Thread.sleep(seconds * 1000);
-
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    return (T) this;
-  }
-
+  /**
+   * Шаг для сохранения скачанного по последнему запросу файла.
+   *
+   * @param fileName - имя файла (полный путь с расширением).
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
   @Step("Сохранение скачанного файла как \"{fileName}\"")
   default T saveResponseAsFile(String fileName) {
     Response response = ((KleeKaiApiPage<?>) this).getResponse();
@@ -127,6 +142,24 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
       FileUtils.writeByteArrayToFile(new File(fileName), response.then().extract().asByteArray());
 
     } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return (T) this;
+  }
+
+  /**
+   * Шаг для выполнения ожидания.
+   *
+   * @param seconds - количество секунд.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Выполнено ожидание в течение \"{seconds}\" секунд")
+  default T waitForSeconds(long seconds) {
+    try {
+      Thread.sleep(seconds * 1000);
+
+    } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
