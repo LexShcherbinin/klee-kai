@@ -62,7 +62,7 @@ public final class EanGenerator {
    * @return - возвращает UPC-A (двенадцатизначный) штрих код.
    */
   public static String getUpcA(String value) {
-    if (value.toCharArray().length != 12) {
+    if (value.toCharArray().length != 11) {
       throw new IllegalArgumentException(String.format("Неверное значение аргумента: \"%s\"", value));
     }
 
