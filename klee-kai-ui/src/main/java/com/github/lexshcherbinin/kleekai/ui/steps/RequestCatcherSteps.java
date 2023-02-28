@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v103.network.Network;
-import org.openqa.selenium.devtools.v103.network.model.Request;
+import org.openqa.selenium.devtools.v107.network.Network;
+import org.openqa.selenium.devtools.v107.network.model.Request;
 
 /**
  * Шаги для перехвата API-запросов
