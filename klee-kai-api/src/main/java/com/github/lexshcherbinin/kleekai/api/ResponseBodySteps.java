@@ -110,6 +110,42 @@ public interface ResponseBodySteps<T extends KleeKaiApiPage<T>> {
     Assertions
         .assertThat(actualValueList.contains(value))
         .withFailMessage(String.format("В response body в полях \"%s\" присутствует значение \"%s\"", field, value))
+        .isFalse();
+
+    return (T) this;
+  }
+
+  /**
+   * Шаг для проверки, что в response body все поля field содержат значение value.
+   * @param field - путь\поле.
+   * @param value - значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что в response body все поля \"{field}\" содержат значение \"{value}\"")
+  default T checkAllFieldsContainsValue(String field, String value) {
+    List<String> actualValueList = ((KleeKaiApiPage<?>) this).getResponse().jsonPath().getList(field);
+
+    Assertions
+        .assertThat(actualValueList.stream().allMatch(v -> v.contains(value)))
+        .withFailMessage(String.format("В response body не все поля \"%s\" содержат значение \"%s\"", field, value))
+        .isTrue();
+
+    return (T) this;
+  }
+
+  /**
+   * Шаг для проверки, что в response body все поля field не содержат значение value.
+   * @param field - путь\поле.
+   * @param value - значение.
+   * @return - возвращает экземпляр текущего api-пейджа.
+   */
+  @Step("Проверка, что в response body все поля \"{field}\" не содержат значение \"{value}\"")
+  default T checkAllFieldsNotContainsValue(String field, String value) {
+    List<String> actualValueList = ((KleeKaiApiPage<?>) this).getResponse().jsonPath().getList(field);
+
+    Assertions
+        .assertThat(actualValueList.stream().noneMatch(v -> v.contains(value)))
+        .withFailMessage(String.format("В response body не все поля \"%s\" не содержат значение \"%s\"", field, value))
         .isTrue();
 
     return (T) this;
